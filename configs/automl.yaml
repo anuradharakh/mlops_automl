@@ -1,0 +1,60 @@
+project:
+  name: mlops-automl
+  description: >
+    Compare Databricks AutoML and H2O AutoML using the athletes dataset.
+
+data:
+  raw_path: data/raw/athletes.csv
+  processed_path: data/processed/athletes_automl.parquet
+  train_path: data/splits/train.parquet
+  validation_path: data/splits/validation.parquet
+  test_path: data/splits/test.parquet
+
+target:
+  name: total_lift
+  components:
+    - deadlift
+    - candj
+    - snatch
+    - backsq
+
+excluded_columns:
+  identifiers:
+    - athlete_id
+  metadata:
+    - event_timestamp
+  target_leakage:
+    - total_lift
+    - deadlift
+    - candj
+    - snatch
+    - backsq
+
+split:
+  train_size: 0.64
+  validation_size: 0.16
+  test_size: 0.20
+  random_state: 42
+
+evaluation:
+  primary_metric: rmse
+  additional_metrics:
+    - mae
+    - r2
+
+automl:
+  runtime_limit_seconds: 900
+  random_state: 42
+  top_feature_count: 3
+  leaderboard_model_count: 3
+
+platforms:
+  databricks:
+    enabled: true
+    mode: low-code
+
+  h2o:
+    enabled: true
+    sort_metric: RMSE
+    max_runtime_seconds: 900
+    seed: 42
