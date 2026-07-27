@@ -3,6 +3,12 @@ project:
   description: >
     Compare Databricks AutoML and H2O AutoML using the athletes dataset.
 
+profiling:
+  dataset_profile: reports/data/dataset_profile.json
+  column_profile: reports/data/column_profile.csv
+  feature_contract_draft: reports/data/feature_contract_draft.csv
+  sample_value_count: 3
+
 data:
   raw_path: data/raw/athletes.csv
   processed_path: data/processed/athletes_automl.parquet
@@ -17,6 +23,8 @@ target:
     - candj
     - snatch
     - backsq
+  sentinel_values:
+    - 1
 
 excluded_columns:
   identifiers:

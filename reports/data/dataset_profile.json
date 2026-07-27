@@ -1,0 +1,77 @@
+{
+  "status": "PASS",
+  "source": {
+    "path": "data/raw/athletes.csv",
+    "sha256": "e6a019bd1d2b6c29bf02a62693d22443850b12a1c475be9f68c34892bfc6ff83",
+    "size_bytes": 71546909
+  },
+  "dataset": {
+    "row_count": 423006,
+    "column_count": 27,
+    "duplicate_row_count": 2,
+    "memory_usage_mb": 287.279,
+    "columns": [
+      "athlete_id",
+      "name",
+      "region",
+      "team",
+      "affiliate",
+      "gender",
+      "age",
+      "height",
+      "weight",
+      "fran",
+      "helen",
+      "grace",
+      "filthy50",
+      "fgonebad",
+      "run400",
+      "run5k",
+      "candj",
+      "snatch",
+      "deadlift",
+      "backsq",
+      "pullups",
+      "eat",
+      "train",
+      "background",
+      "experience",
+      "schedule",
+      "howlong"
+    ]
+  },
+  "column_roles": {
+    "candidate_feature": 22,
+    "target_component": 4,
+    "identifier": 1
+  },
+  "feature_contract_actions": {
+    "candidate": 21,
+    "exclude": 5,
+    "review": 1
+  },
+  "target_readiness": {
+    "initial_rows": 423006,
+    "missing_identifier_rows": 3,
+    "missing_or_invalid_target_rows": 337854,
+    "eligible_rows": 85149,
+    "sentinel_values": [
+      1
+    ],
+    "sentinel_counts": {
+      "deadlift": 33,
+      "candj": 35,
+      "snatch": 33,
+      "backsq": 34
+    },
+    "total_sentinel_replacements": 135,
+    "target_statistics": {
+      "count": 85149,
+      "minimum": 0.0,
+      "maximum": 33554428.0,
+      "mean": 2062.008502742252,
+      "median": 985.0,
+      "standard_deviation": 154884.1552079738
+    }
+  }
+}

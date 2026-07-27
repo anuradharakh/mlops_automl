@@ -1,0 +1,28 @@
+column,raw_dtype,role,row_count,non_null_count,missing_count,missing_percentage,unique_count,unique_ratio,numeric_parse_rate,is_constant,is_high_cardinality,sample_values
+athlete_id,float64,identifier,423006,423003,3,0.0007,423003,1.0,1.0,False,True,2554.0 | 3517.0 | 4691.0
+name,object,candidate_feature,423006,331110,91896,21.7245,306752,0.926435,0.0,False,True,Pj Ablang | Derek Abdella | Abo Brandon
+region,object,candidate_feature,423006,251262,171744,40.6008,17,6.8e-05,0.0,False,False,South West | Southern California | South Central
+team,object,candidate_feature,423006,155160,267846,63.3197,4532,0.029209,0.000293,False,False,Double Edge | LAX CrossFit | Get Lifted
+affiliate,object,candidate_feature,423006,241916,181090,42.8103,9778,0.040419,0.0,False,False,Double Edge CrossFit | LAX CrossFit | Get Lifted CrossFit
+gender,object,candidate_feature,423006,331110,91896,21.7245,3,9e-06,0.0,False,False,Male | Female | --
+age,float64,candidate_feature,423006,331110,91896,21.7245,52,0.000157,1.0,False,False,24.0 | 42.0 | 40.0
+height,float64,candidate_feature,423006,159869,263137,62.2064,127,0.000794,1.0,False,False,70.0 | 67.0 | 65.0
+weight,float64,candidate_feature,423006,229890,193116,45.6533,386,0.001679,1.0,False,False,166.0 | 190.0 | 149.0
+fran,float64,candidate_feature,423006,55426,367580,86.8971,1041,0.018782,1.0,False,False,211.0 | 206.0 | 205.0
+helen,float64,candidate_feature,423006,30279,392727,92.8419,1064,0.03514,1.0,False,False,645.0 | 465.0 | 614.0
+grace,float64,candidate_feature,423006,40745,382261,90.3677,874,0.02145,1.0,False,False,300.0 | 200.0 | 103.0
+filthy50,float64,candidate_feature,423006,19359,403647,95.4235,2069,0.106875,1.0,False,False,1053.0 | 1647.0 | 971.0
+fgonebad,float64,candidate_feature,423006,29738,393268,92.9698,547,0.018394,1.0,False,False,0.0 | 196.0 | 332.0
+run400,float64,candidate_feature,423006,22246,400760,94.741,402,0.018071,1.0,False,False,61.0 | 73.0 | 69.0
+run5k,float64,candidate_feature,423006,36097,386909,91.4666,1779,0.049284,1.0,False,False,1081.0 | 1361.0 | 1211.0
+candj,float64,target_component,423006,104435,318571,75.3112,428,0.004098,1.0,False,False,220.0 | 245.0 | 205.0
+snatch,float64,target_component,423006,97280,325726,77.0027,372,0.003824,1.0,False,False,200.0 | 150.0 | 0.0
+deadlift,float64,target_component,423006,115323,307683,72.7373,629,0.005454,1.0,False,False,400.0 | 375.0 | 435.0
+backsq,float64,target_component,423006,110517,312489,73.8734,568,0.005139,1.0,False,False,305.0 | 325.0 | 414.0
+pullups,float64,candidate_feature,423006,50608,372398,88.0361,178,0.003517,1.0,False,False,25.0 | 50.0 | 0.0
+eat,object,candidate_feature,423006,93932,329074,77.7942,47,0.0005,0.0,False,False,I eat 1-3 full cheat meals per week| | I eat quality foods but don't measure the amount| | I eat strict Paleo|
+train,object,candidate_feature,423006,105831,317175,74.9812,83,0.000784,0.0,False,False,I workout mostly at a CrossFit Affiliate|I have a coach who determines my programming|I record my wo | I have a coach who determines my programming|I record my workouts| | I workout mostly at a CrossFit Affiliate|I incorporate CrossFit.com workouts|I write my own programm
+background,object,candidate_feature,423006,98945,324061,76.6091,43,0.000435,0.0,False,False,I played youth or high school level sports|I regularly play recreational sports| | I played youth or high school level sports| | I played college sports|
+experience,object,candidate_feature,423006,104936,318070,75.1928,84,0.0008,0.0,False,False,I began CrossFit with a coach (e.g. at an affiliate)|I have attended one or more specialty courses|I | I began CrossFit by trying it alone (without a coach)|I began CrossFit with a coach (e.g. at an affi | I began CrossFit by trying it alone (without a coach)|I have completed the CrossFit Level 1 certific
+schedule,object,candidate_feature,423006,97875,325131,76.862,134,0.001369,0.0,False,False,I do multiple workouts in a day 2x a week| | I usually only do 1 workout a day| | I usually only do 1 workout a day|I strictly schedule my rest days|
+howlong,object,candidate_feature,423006,109206,313800,74.1833,30,0.000275,0.0,False,False,4+ years| | 1-2 years| | 2-4 years|
