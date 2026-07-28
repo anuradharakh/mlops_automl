@@ -1,0 +1,31 @@
+column,role,source,action,reason
+athlete_id,identifier,raw,exclude,Identifier retained only for traceability.
+name,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+region,categorical_feature,raw,include,Validated categorical model feature.
+team,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+affiliate,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+gender,categorical_feature,raw,include,Validated categorical model feature.
+age,numeric_feature,raw,include,Validated numeric model feature.
+height,numeric_feature,raw,include,Validated numeric model feature.
+weight,numeric_feature,raw,include,Validated numeric model feature.
+fran,numeric_feature,raw,include,Validated numeric model feature.
+helen,numeric_feature,raw,include,Validated numeric model feature.
+grace,numeric_feature,raw,include,Validated numeric model feature.
+filthy50,numeric_feature,raw,include,Validated numeric model feature.
+fgonebad,numeric_feature,raw,include,Validated numeric model feature.
+run400,numeric_feature,raw,include,Validated numeric model feature.
+run5k,numeric_feature,raw,include,Validated numeric model feature.
+candj,target_component,raw,exclude,Excluded to prevent direct target leakage.
+snatch,target_component,raw,exclude,Excluded to prevent direct target leakage.
+deadlift,target_component,raw,exclude,Excluded to prevent direct target leakage.
+backsq,target_component,raw,exclude,Excluded to prevent direct target leakage.
+pullups,numeric_feature,raw,include,Validated numeric model feature.
+eat,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+train,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+background,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+experience,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+schedule,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+howlong,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+bmi,numeric_feature,engineered,include,Deterministic feature engineering from raw inputs.
+age_squared,numeric_feature,engineered,include,Deterministic feature engineering from raw inputs.
+weight_height_ratio,numeric_feature,engineered,include,Deterministic feature engineering from raw inputs.

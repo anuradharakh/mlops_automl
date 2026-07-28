@@ -1,0 +1,45 @@
+{
+  "identifier": "athlete_id",
+  "target": "total_lift",
+  "numeric_features": [
+    "age",
+    "height",
+    "weight",
+    "fran",
+    "helen",
+    "grace",
+    "filthy50",
+    "fgonebad",
+    "run400",
+    "run5k",
+    "pullups",
+    "bmi",
+    "age_squared",
+    "weight_height_ratio"
+  ],
+  "categorical_features": [
+    "gender",
+    "region"
+  ],
+  "all_model_features": [
+    "age",
+    "height",
+    "weight",
+    "fran",
+    "helen",
+    "grace",
+    "filthy50",
+    "fgonebad",
+    "run400",
+    "run5k",
+    "pullups",
+    "gender",
+    "region",
+    "bmi",
+    "age_squared",
+    "weight_height_ratio"
+  ],
+  "feature_count": 16,
+  "missing_optional_numeric": [],
+  "missing_optional_categorical": []
+}

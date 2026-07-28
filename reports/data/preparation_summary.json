@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "raw_rows": 423006,
+  "raw_columns": 27,
+  "rows_after_target_filter": 81828,
+  "missing_identifier_rows_removed": 0,
+  "rows_removed_for_missing_required_features": 28294,
+  "duplicate_identifier_rows_detected": 0,
+  "duplicate_identifiers_removed": 0,
+  "final_rows": 53534,
+  "identifier_column": "athlete_id",
+  "target": "total_lift",
+  "target_summary": {
+    "sentinel_values": [
+      1
+    ],
+    "sentinel_counts": {
+      "deadlift": 33,
+      "candj": 35,
+      "snatch": 33,
+      "backsq": 34
+    },
+    "total_sentinel_replacements": 135,
+    "rows_with_complete_target": 81828,
+    "rows_with_incomplete_target": 341178
+  },
+  "feature_count": 16,
+  "numeric_features": [
+    "age",
+    "height",
+    "weight",
+    "fran",
+    "helen",
+    "grace",
+    "filthy50",
+    "fgonebad",
+    "run400",
+    "run5k",
+    "pullups",
+    "bmi",
+    "age_squared",
+    "weight_height_ratio"
+  ],
+  "categorical_features": [
+    "gender",
+    "region"
+  ],
+  "split_counts": {
+    "train": 34261,
+    "validation": 8566,
+    "test": 10707
+  },
+  "random_state": 42,
+  "target_statistics": {
+    "minimum": 8.0,
+    "maximum": 33554428.0,
+    "mean": 2416.7730601113312,
+    "median": 1020.0,
+    "standard_deviation": 181294.48172325522
+  },
+  "output_files": {
+    "processed_parquet": "data/processed/athletes_automl.parquet",
+    "processed_csv": "data/processed/athletes_automl.csv",
+    "train": "data/splits/train.parquet",
+    "validation": "data/splits/validation.parquet",
+    "test": "data/splits/test.parquet"
+  }
+}
