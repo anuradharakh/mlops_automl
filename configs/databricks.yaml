@@ -1,0 +1,29 @@
+project:
+  name: mlops-automl
+
+data:
+  train_path: data/splits/train.parquet
+  validation_path: data/splits/validation.parquet
+  test_path: data/splits/test.parquet
+  export_csv_path: data/processed/databricks_automl_dataset.csv
+  export_parquet_path: data/processed/databricks_automl_dataset.parquet
+
+schema:
+  target_column: total_lift
+  split_column: data_split
+  identifier_candidates:
+    - athlete_id
+    - record_id
+
+splits:
+  train_label: train
+  validation_label: validate
+  test_label: test
+
+automl:
+  primary_metric: rmse
+  timeout_minutes: 15
+  experiment_name: athletes_databricks_all_features
+
+reports:
+  export_summary_path: reports/databricks/all_features/dataset_export_summary.json

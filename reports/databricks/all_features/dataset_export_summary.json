@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "row_count": 53534,
+  "column_count": 19,
+  "identifier_column": "athlete_id",
+  "target_column": "total_lift",
+  "split_column": "data_split",
+  "split_counts": {
+    "test": 10707,
+    "train": 34261,
+    "validate": 8566
+  },
+  "model_feature_count": 16,
+  "model_features": [
+    "age",
+    "height",
+    "weight",
+    "fran",
+    "helen",
+    "grace",
+    "filthy50",
+    "fgonebad",
+    "run400",
+    "run5k",
+    "pullups",
+    "gender",
+    "region",
+    "bmi",
+    "age_squared",
+    "weight_height_ratio"
+  ],
+  "csv_path": "data/processed/databricks_automl_dataset.csv",
+  "csv_sha256": "c23d0fbd29165ed30e8885113ca828247b4ac3d776caa114a625ebe20a79569d",
+  "csv_size_bytes": 6388145,
+  "parquet_path": "data/processed/databricks_automl_dataset.parquet",
+  "parquet_sha256": "0bc0289e084898594753aea53d12e5890bc6be716f298247a936f10940ad5456",
+  "parquet_size_bytes": 1240798
+}
