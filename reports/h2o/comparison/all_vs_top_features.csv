@@ -1,0 +1,3 @@
+feature_set,feature_count,selected_features,best_model,validation_rmse,test_rmse,test_mae,test_r2,training_seconds,prediction_seconds
+all_features,13,"age,height,weight,fran,helen,grace,run5k,pullups,gender,region,bmi,age_squared,weight_height_ratio",GBM_2_AutoML_1_20260731_161446,130.70703837556354,129.43664056317857,96.19411272558284,0.7797247719343763,63.45678495900211,0.27930874999583466
+top_features,3,"gender,weight_height_ratio,fran",GBM_1_AutoML_1_20260731_162003,143.57868602858534,142.4881918956431,105.71871405697841,0.7330628954447825,3.419963958003791,0.2529092920012772

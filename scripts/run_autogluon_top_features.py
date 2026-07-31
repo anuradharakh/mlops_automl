@@ -1,11 +1,14 @@
-"""Run the AutoGluon experiment using the top three features."""
+"""Run AutoGluon using the top three all-features results."""
 
 from __future__ import annotations
 
+import argparse
+import importlib.metadata
 import json
 import os
 import random
 import shutil
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -14,25 +17,57 @@ import mlflow
 import numpy as np
 import pandas as pd
 import yaml
-from athlete_automl.autogluon.experiment import (
-    build_model_comparison,
-    build_speed_ranking,
-    find_identifier_column,
+from autogluon.tabular import TabularPredictor
+
+from athlete_automl.automl.evaluation import (
+    normalize_autogluon_leaderboard,
     regression_metrics,
-    split_features_target,
-    validate_modeling_dataset,
-    validate_split_schemas,
-    write_json,
+    top_models_by_score,
+    top_models_by_speed,
+    validate_feature_contract,
+)
+from athlete_automl.automl.feature_selection import (
+    compare_run_summaries,
+    extract_top_features,
+)
+from athlete_automl.automl.plotting import (
+    plot_actual_vs_predicted,
+    plot_feature_importance,
+    plot_leaderboard_rmse,
 )
 
-from athlete_automl.autogluon.top_features import (
-    read_top_features,
-    reduce_dataset,
-    validate_selected_features,
-)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-CONFIG_PATH = PROJECT_ROOT / "configs" / "autogluon_top_features.yaml"
+CONFIG_PATH = (
+    PROJECT_ROOT
+    / "configs"
+    / "autogluon_top_features.yaml"
+)
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        description=(
+            "Run AutoGluon using the top three features."
+        )
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help=(
+            "Delete an existing top-feature predictor."
+        ),
+    )
+    parser.add_argument(
+        "--time-limit",
+        type=int,
+        default=None,
+        help=(
+            "Override the configured training time limit."
+        ),
+    )
+    return parser.parse_args()
 
 
 def resolve_path(value: str) -> Path:
@@ -40,521 +75,733 @@ def resolve_path(value: str) -> Path:
     return PROJECT_ROOT / value
 
 
-def import_autogluon() -> Any:
-    """Import AutoGluon with a useful installation error."""
-    try:
-        from autogluon.tabular import TabularPredictor
-    except ImportError as error:
-        raise RuntimeError(
-            "AutoGluon is not installed. Run: "
-            "python -m pip install -r requirements-automl.txt"
-        ) from error
-
-    return TabularPredictor
-
-
-def save_feature_importance(
-    predictor: Any,
-    validation_data: pd.DataFrame,
-    model_name: str,
-    output_path: Path,
-    subsample_size: int,
-    num_shuffle_sets: int,
-    time_limit_seconds: int,
-) -> pd.DataFrame:
-    """Calculate permutation importance for the reduced feature set."""
-    importance = predictor.feature_importance(
-        data=validation_data,
-        model=model_name,
-        subsample_size=min(
-            subsample_size,
-            len(validation_data),
-        ),
-        num_shuffle_sets=num_shuffle_sets,
-        time_limit=time_limit_seconds,
-        silent=True,
+def load_json(path: Path) -> dict[str, Any]:
+    """Load a JSON object."""
+    return json.loads(
+        path.read_text(encoding="utf-8")
     )
 
-    importance = importance.reset_index()
 
-    if "feature" not in importance.columns:
-        importance = importance.rename(
-            columns={
-                importance.columns[0]: "feature",
-            }
-        )
+def find_identifier_column(
+    columns: list[str],
+    candidates: list[str],
+) -> str:
+    """Return the first supported identifier."""
+    for candidate in candidates:
+        if candidate in columns:
+            return candidate
 
-    importance.insert(
-        0,
-        "importance_rank",
-        range(1, len(importance) + 1),
+    raise ValueError(
+        "No supported identifier column was found."
     )
-
-    output_path.parent.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-    importance.to_csv(
-        output_path,
-        index=False,
-    )
-
-    return importance
-
-
-def create_platform_comparison(
-    all_features_metrics_path: Path,
-    top_features_payload: dict[str, Any],
-    output_path: Path,
-) -> pd.DataFrame:
-    """Compare AutoGluon all-feature and top-feature results."""
-    if not all_features_metrics_path.exists():
-        raise FileNotFoundError(
-            "Run the all-features experiment first. Missing: "
-            f"{all_features_metrics_path}"
-        )
-
-    all_payload = json.loads(all_features_metrics_path.read_text(encoding="utf-8"))
-
-    all_metrics = all_payload["metrics"]
-    top_metrics = top_features_payload["metrics"]
-
-    comparison = pd.DataFrame(
-        [
-            {
-                "platform": "AutoGluon",
-                "feature_set": "all_features",
-                "feature_count": all_payload.get("feature_count"),
-                "best_model": all_payload["best_model"],
-                "validation_rmse": all_metrics["best_validation_rmse"],
-                "test_rmse": all_metrics["test_rmse"],
-                "test_mae": all_metrics["test_mae"],
-                "test_r2": all_metrics["test_r2"],
-                "training_wall_clock_seconds": all_metrics[
-                    "training_wall_clock_seconds"
-                ],
-                "test_prediction_seconds": all_metrics["test_prediction_seconds"],
-            },
-            {
-                "platform": "AutoGluon",
-                "feature_set": "top_features",
-                "feature_count": top_features_payload["feature_count"],
-                "best_model": top_features_payload["best_model"],
-                "validation_rmse": top_metrics["best_validation_rmse"],
-                "test_rmse": top_metrics["test_rmse"],
-                "test_mae": top_metrics["test_mae"],
-                "test_r2": top_metrics["test_r2"],
-                "training_wall_clock_seconds": top_metrics[
-                    "training_wall_clock_seconds"
-                ],
-                "test_prediction_seconds": top_metrics["test_prediction_seconds"],
-            },
-        ]
-    )
-
-    all_row = comparison.loc[comparison["feature_set"] == "all_features"].iloc[0]
-    top_row = comparison.loc[comparison["feature_set"] == "top_features"].iloc[0]
-
-    comparison["test_rmse_change_vs_all"] = [
-        0.0,
-        float(top_row["test_rmse"] - all_row["test_rmse"]),
-    ]
-    comparison["training_time_change_vs_all"] = [
-        0.0,
-        float(
-            top_row["training_wall_clock_seconds"]
-            - all_row["training_wall_clock_seconds"]
-        ),
-    ]
-
-    output_path.parent.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-    comparison.to_csv(
-        output_path,
-        index=False,
-    )
-
-    return comparison
 
 
 def main() -> None:
-    """Execute the top-three-feature AutoGluon experiment."""
-    TabularPredictor = import_autogluon()
+    """Train, evaluate, compare, and track top-feature AutoML."""
+    args = parse_args()
 
     with CONFIG_PATH.open(encoding="utf-8") as file:
         config = yaml.safe_load(file)
 
     data_config = config["data"]
     schema_config = config["schema"]
-    selection_config = config["feature_selection"]
-    experiment_config = config["experiment"]
-    importance_config = config["feature_importance"]
-    output_config = config["outputs"]
+    automl_config = config["automl"]
+    importance_config = config[
+        "feature_importance"
+    ]
+    mlflow_config = config["mlflow"]
+    reports_config = config["reports"]
 
-    split_paths = {
-        "train": resolve_path(data_config["train_path"]),
-        "validation": resolve_path(data_config["validation_path"]),
-        "test": resolve_path(data_config["test_path"]),
-    }
+    train_path = resolve_path(
+        data_config["train_path"]
+    )
+    validation_path = resolve_path(
+        data_config["validation_path"]
+    )
+    test_path = resolve_path(
+        data_config["test_path"]
+    )
+    all_summary_path = resolve_path(
+        data_config[
+            "all_features_summary_path"
+        ]
+    )
 
-    missing_files = [
+    missing_paths = [
         str(path.relative_to(PROJECT_ROOT))
-        for path in split_paths.values()
+        for path in (
+            train_path,
+            validation_path,
+            test_path,
+            all_summary_path,
+        )
         if not path.exists()
     ]
 
-    if missing_files:
+    if missing_paths:
         raise FileNotFoundError(
-            "Run scripts/prepare_data.py first. Missing: " + ", ".join(missing_files)
+            "Required prior artifacts are missing: "
+            + ", ".join(missing_paths)
         )
 
-    train = pd.read_parquet(split_paths["train"])
-    validation = pd.read_parquet(split_paths["validation"])
-    test = pd.read_parquet(split_paths["test"])
-
-    validate_split_schemas(
-        train=train,
-        validation=validation,
-        test=test,
+    all_summary = load_json(
+        all_summary_path
+    )
+    model_features = extract_top_features(
+        all_summary,
+        expected_count=int(
+            automl_config[
+                "expected_feature_count"
+            ]
+        ),
     )
 
-    target_column = schema_config["target_column"]
+    validate_feature_contract(
+        model_features=model_features,
+        prohibited_features=list(
+            schema_config[
+                "prohibited_features"
+            ]
+        ),
+    )
+
+    train = pd.read_parquet(train_path)
+    validation = pd.read_parquet(
+        validation_path
+    )
+    test = pd.read_parquet(test_path)
+
+    target_column = schema_config[
+        "target_column"
+    ]
     identifier_column = find_identifier_column(
         columns=list(train.columns),
-        candidates=list(schema_config["identifier_candidates"]),
+        candidates=list(
+            schema_config[
+                "identifier_candidates"
+            ]
+        ),
     )
 
-    selected_features = read_top_features(
-        path=resolve_path(selection_config["source_path"]),
-        feature_column=selection_config["feature_column"],
-        rank_column=selection_config["rank_column"],
-        count=int(selection_config["top_feature_count"]),
-    )
+    required_columns = {
+        identifier_column,
+        target_column,
+        *model_features,
+    }
 
-    validate_selected_features(
-        selected_features=selected_features,
-        available_columns=list(train.columns),
-        prohibited_columns={
-            target_column,
-            identifier_column,
-            "deadlift",
-            "candj",
-            "snatch",
-            "backsq",
-        },
-    )
-
-    train = reduce_dataset(
-        dataframe=train,
-        identifier_column=identifier_column,
-        target_column=target_column,
-        selected_features=selected_features,
-    )
-    validation = reduce_dataset(
-        dataframe=validation,
-        identifier_column=identifier_column,
-        target_column=target_column,
-        selected_features=selected_features,
-    )
-    test = reduce_dataset(
-        dataframe=test,
-        identifier_column=identifier_column,
-        target_column=target_column,
-        selected_features=selected_features,
-    )
-
-    for dataframe in (
-        train,
-        validation,
-        test,
-    ):
-        validate_modeling_dataset(
-            dataframe=dataframe,
-            target_column=target_column,
-            identifier_column=identifier_column,
+    for split_name, dataframe in {
+        "train": train,
+        "validation": validation,
+        "test": test,
+    }.items():
+        missing_columns = sorted(
+            required_columns.difference(
+                dataframe.columns
+            )
         )
 
-    train_features, train_target, _ = split_features_target(
-        train,
-        target_column=target_column,
-        identifier_column=identifier_column,
+        if missing_columns:
+            raise ValueError(
+                f"{split_name} is missing columns: "
+                f"{missing_columns}"
+            )
+
+        if dataframe[target_column].isna().any():
+            raise ValueError(
+                f"{split_name} contains missing targets."
+            )
+
+    train_model = train[
+        [*model_features, target_column]
+    ].copy()
+    validation_model = validation[
+        [*model_features, target_column]
+    ].copy()
+    test_model = test[
+        [*model_features, target_column]
+    ].copy()
+
+    predictor_path = resolve_path(
+        automl_config["predictor_path"]
     )
-    validation_features, validation_target, _ = split_features_target(
-        validation,
-        target_column=target_column,
-        identifier_column=identifier_column,
+    report_dir = resolve_path(
+        reports_config["output_dir"]
     )
-    test_features, test_target, test_identifiers = split_features_target(
-        test,
-        target_column=target_column,
-        identifier_column=identifier_column,
+    comparison_dir = resolve_path(
+        reports_config["comparison_dir"]
     )
 
-    train_automl = train_features.copy()
-    train_automl[target_column] = train_target.to_numpy()
+    if predictor_path.exists():
+        if not args.overwrite:
+            raise FileExistsError(
+                f"Predictor directory already exists: "
+                f"{predictor_path}. Use --overwrite."
+            )
 
-    validation_automl = validation_features.copy()
-    validation_automl[target_column] = validation_target.to_numpy()
+        shutil.rmtree(predictor_path)
 
-    random_state = int(experiment_config["random_state"])
-    os.environ["PYTHONHASHSEED"] = str(random_state)
-    random.seed(random_state)
-    np.random.seed(random_state)
-
-    predictor_path = resolve_path(output_config["predictor_path"])
-    report_dir = resolve_path(output_config["report_dir"])
-    comparison_path = resolve_path(output_config["comparison_path"])
-
+    predictor_path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
     report_dir.mkdir(
         parents=True,
         exist_ok=True,
     )
-
-    if predictor_path.exists():
-        shutil.rmtree(predictor_path)
-
-    selected_features_path = report_dir / "selected_top3_features.json"
-    write_json(
-        selected_features_path,
-        {
-            "source": selection_config["source_path"],
-            "selected_features": selected_features,
-            "feature_count": len(selected_features),
-        },
+    comparison_dir.mkdir(
+        parents=True,
+        exist_ok=True,
     )
 
-    mlflow.set_tracking_uri(config["tracking"]["uri"])
-    mlflow.set_experiment(experiment_config["name"])
+    random_state = int(
+        automl_config["random_state"]
+    )
+    os.environ["PYTHONHASHSEED"] = str(
+        random_state
+    )
+    random.seed(random_state)
+    np.random.seed(random_state)
 
-    with mlflow.start_run(run_name=experiment_config["run_name"]) as run:
+    time_limit_seconds = (
+        args.time_limit
+        if args.time_limit is not None
+        else int(
+            automl_config[
+                "time_limit_seconds"
+            ]
+        )
+    )
+
+    tracking_database = resolve_path(
+        mlflow_config["tracking_database"]
+    )
+    mlflow.set_tracking_uri(
+        f"sqlite:///{tracking_database.resolve()}"
+    )
+    mlflow.set_experiment(
+        mlflow_config["experiment_name"]
+    )
+
+    package_versions = {
+        "python": sys.version.split()[0],
+        "autogluon.tabular": (
+            importlib.metadata.version(
+                "autogluon.tabular"
+            )
+        ),
+        "mlflow": importlib.metadata.version(
+            "mlflow"
+        ),
+        "pandas": importlib.metadata.version(
+            "pandas"
+        ),
+        "numpy": importlib.metadata.version(
+            "numpy"
+        ),
+        "scikit-learn": (
+            importlib.metadata.version(
+                "scikit-learn"
+            )
+        ),
+    }
+
+    with mlflow.start_run(
+        run_name=mlflow_config["run_name"]
+    ) as run:
         mlflow.log_params(
             {
-                "platform": (config["project"]["platform"]),
-                "platform_mode": (config["project"]["mode"]),
-                "feature_set": (experiment_config["feature_set"]),
-                "selected_features": ",".join(selected_features),
-                "target": target_column,
-                "primary_metric": (experiment_config["primary_metric"]),
-                "presets": (experiment_config["presets"]),
-                "time_limit_seconds": int(experiment_config["time_limit_seconds"]),
+                "platform": automl_config[
+                    "platform"
+                ],
+                "feature_set": automl_config[
+                    "feature_set"
+                ],
+                "problem_type": automl_config[
+                    "problem_type"
+                ],
+                "eval_metric": automl_config[
+                    "eval_metric"
+                ],
+                "presets": automl_config[
+                    "presets"
+                ],
+                "time_limit_seconds": (
+                    time_limit_seconds
+                ),
+                "fit_strategy": automl_config[
+                    "fit_strategy"
+                ],
                 "random_state": random_state,
-                "train_rows": len(train),
-                "validation_rows": len(validation),
-                "test_rows": len(test),
-                "feature_count": len(selected_features),
+                "feature_count": len(
+                    model_features
+                ),
+                "selected_features": ",".join(
+                    model_features
+                ),
+                "train_rows": len(train_model),
+                "validation_rows": len(
+                    validation_model
+                ),
+                "test_rows": len(test_model),
             }
         )
 
-        training_started = time.perf_counter()
+        mlflow.log_dict(
+            config,
+            "configuration/"
+            "autogluon_top_features.yaml.json",
+        )
+        mlflow.log_dict(
+            all_summary,
+            "configuration/"
+            "all_features_run_summary.json",
+        )
+        mlflow.log_dict(
+            package_versions,
+            "environment/package_versions.json",
+        )
+
+        training_start = time.perf_counter()
 
         predictor = TabularPredictor(
             label=target_column,
-            problem_type="regression",
-            eval_metric=("root_mean_squared_error"),
+            problem_type=automl_config[
+                "problem_type"
+            ],
+            eval_metric=automl_config[
+                "eval_metric"
+            ],
             path=str(predictor_path),
             verbosity=2,
         ).fit(
-            train_data=train_automl,
-            tuning_data=validation_automl,
-            presets=experiment_config["presets"],
-            time_limit=int(experiment_config["time_limit_seconds"]),
-            num_bag_folds=0,
-            num_stack_levels=0,
-            fit_weighted_ensemble=True,
+            train_data=train_model,
+            tuning_data=validation_model,
+            time_limit=time_limit_seconds,
+            presets=automl_config["presets"],
+            fit_strategy=automl_config[
+                "fit_strategy"
+            ],
         )
 
-        training_wall_clock_seconds = time.perf_counter() - training_started
+        training_wall_clock_seconds = (
+            time.perf_counter()
+            - training_start
+        )
 
         raw_leaderboard = predictor.leaderboard(
-            validation_automl,
-            silent=True,
+            test_model,
             extra_info=True,
+            silent=True,
         )
-
-        raw_leaderboard_path = report_dir / "autogluon_raw_leaderboard.csv"
-        raw_leaderboard.to_csv(
-            raw_leaderboard_path,
-            index=False,
-        )
-
-        def predict_for_model(
-            features: pd.DataFrame,
-            model_name: str,
-        ) -> np.ndarray:
-            return np.asarray(
-                predictor.predict(
-                    features,
-                    model=model_name,
-                )
+        leaderboard = (
+            normalize_autogluon_leaderboard(
+                raw_leaderboard
             )
-
-        model_comparison = build_model_comparison(
-            leaderboard=raw_leaderboard,
-            validation_features=validation_features,
-            validation_target=validation_target,
-            predict_for_model=predict_for_model,
         )
 
-        leaderboard_path = report_dir / "leaderboard_by_validation_score.csv"
-        model_comparison.to_csv(
-            leaderboard_path,
+        top_score = top_models_by_score(
+            leaderboard,
+            model_count=3,
+        )
+        top_speed, speed_metric = (
+            top_models_by_speed(
+                leaderboard,
+                model_count=3,
+            )
+        )
+
+        test_features = test_model[
+            model_features
+        ]
+        y_test = test_model[target_column]
+
+        prediction_start = time.perf_counter()
+        y_pred = predictor.predict(
+            test_features
+        )
+        prediction_seconds = (
+            time.perf_counter()
+            - prediction_start
+        )
+
+        metrics = regression_metrics(
+            y_true=y_test,
+            y_pred=y_pred,
+        )
+
+        predictions = pd.DataFrame(
+            {
+                identifier_column: (
+                    test[
+                        identifier_column
+                    ].astype(str)
+                ),
+                "actual_total_lift": (
+                    y_test.to_numpy()
+                ),
+                "predicted_total_lift": (
+                    np.asarray(y_pred)
+                ),
+            }
+        )
+        predictions["residual"] = (
+            predictions[
+                "actual_total_lift"
+            ]
+            - predictions[
+                "predicted_total_lift"
+            ]
+        )
+
+        importance = predictor.feature_importance(
+            data=validation_model,
+            model=predictor.model_best,
+            feature_stage="original",
+            subsample_size=min(
+                int(
+                    importance_config[
+                        "subsample_size"
+                    ]
+                ),
+                len(validation_model),
+            ),
+            num_shuffle_sets=int(
+                importance_config[
+                    "num_shuffle_sets"
+                ]
+            ),
+            silent=True,
+        ).sort_values(
+            "importance",
+            ascending=False,
+        )
+
+        leaderboard.to_csv(
+            report_dir / "leaderboard.csv",
+            index=False,
+        )
+        top_score.to_csv(
+            report_dir / "top3_by_score.csv",
+            index=False,
+        )
+        top_speed.to_csv(
+            report_dir / "top3_by_speed.csv",
+            index=False,
+        )
+        importance.to_csv(
+            report_dir
+            / "feature_importance.csv",
+            index=True,
+            index_label="feature",
+        )
+        predictions.to_parquet(
+            report_dir
+            / "test_predictions.parquet",
             index=False,
         )
 
-        top_three_score_path = report_dir / "top3_models_by_validation_score.csv"
-        model_comparison.head(3).to_csv(
-            top_three_score_path,
-            index=False,
+        plot_leaderboard_rmse(
+            leaderboard=leaderboard,
+            output_path=(
+                report_dir
+                / "leaderboard_rmse.png"
+            ),
+        )
+        plot_feature_importance(
+            feature_importance=importance,
+            output_path=(
+                report_dir
+                / "feature_importance.png"
+            ),
+        )
+        plot_actual_vs_predicted(
+            predictions=predictions,
+            output_path=(
+                report_dir
+                / "actual_vs_predicted.png"
+            ),
         )
 
-        speed_ranking = build_speed_ranking(model_comparison)
-        speed_ranking_path = report_dir / "leaderboard_by_training_speed.csv"
-        speed_ranking.to_csv(
-            speed_ranking_path,
-            index=False,
-        )
-
-        top_three_speed_path = report_dir / "top3_models_by_training_speed.csv"
-        speed_ranking.head(3).to_csv(
-            top_three_speed_path,
-            index=False,
-        )
-
-        best_model = str(model_comparison.iloc[0]["model"])
-        best_validation_rmse = float(model_comparison.iloc[0]["validation_rmse"])
-
-        prediction_started = time.perf_counter()
-        test_predictions = predictor.predict(
-            test_features,
-            model=best_model,
-        )
-        prediction_seconds = time.perf_counter() - prediction_started
-
-        test_metrics = regression_metrics(
-            test_target,
-            test_predictions,
-        )
-
-        metrics = {
-            "best_validation_rmse": (best_validation_rmse),
-            "test_rmse": (test_metrics["rmse"]),
-            "test_mae": (test_metrics["mae"]),
-            "test_r2": test_metrics["r2"],
-            "training_wall_clock_seconds": (training_wall_clock_seconds),
-            "test_prediction_seconds": (prediction_seconds),
-            "test_prediction_rows": len(test),
-        }
-
-        mlflow.log_metrics(metrics)
-
-        metrics_payload = {
+        run_summary = {
             "status": "PASS",
             "mlflow_run_id": run.info.run_id,
             "platform": "AutoGluon",
-            "platform_mode": "full-code",
+            "platform_mode": (
+                "full-code AutoML"
+            ),
             "feature_set": "top_features",
-            "selected_features": selected_features,
-            "feature_count": len(selected_features),
-            "best_model": best_model,
-            "metrics": metrics,
-            "model_count": int(len(model_comparison)),
-            "predictor_path": str(predictor_path.relative_to(PROJECT_ROOT)),
+            "feature_count": len(
+                model_features
+            ),
+            "model_features": model_features,
+            "best_model": predictor.model_best,
+            "validation_rmse": float(
+                top_score.iloc[0][
+                    "validation_rmse"
+                ]
+            ),
+            "test_rmse": metrics["rmse"],
+            "test_mae": metrics["mae"],
+            "test_r2": metrics["r2"],
+            "training_wall_clock_seconds": float(
+                training_wall_clock_seconds
+            ),
+            "prediction_seconds": float(
+                prediction_seconds
+            ),
+            "prediction_rows": int(
+                len(test_model)
+            ),
+            "speed_measure": speed_metric,
+            "predictor_path": str(
+                predictor_path.relative_to(
+                    PROJECT_ROOT
+                )
+            ),
+            "package_versions": (
+                package_versions
+            ),
+            "reproducibility_note": (
+                "The same fixed data partitions and AutoML "
+                "configuration are used as in the all-features run."
+            ),
         }
 
-        metrics_path = report_dir / "best_model_metrics.json"
-        write_json(
-            metrics_path,
-            metrics_payload,
+        summary_path = (
+            report_dir / "run_summary.json"
         )
-
-        predictions_path = report_dir / "best_model_test_predictions.csv"
-        prediction_array = np.asarray(test_predictions).reshape(-1)
-
-        pd.DataFrame(
-            {
-                identifier_column: (test_identifiers.astype(str)),
-                "actual_total_lift": (test_target.to_numpy()),
-                "predicted_total_lift": (prediction_array),
-                "residual": (test_target.to_numpy() - prediction_array),
-            }
-        ).to_csv(
-            predictions_path,
-            index=False,
-        )
-
-        importance_path = report_dir / "feature_importance.csv"
-        feature_importance = save_feature_importance(
-            predictor=predictor,
-            validation_data=validation_automl,
-            model_name=best_model,
-            output_path=importance_path,
-            subsample_size=int(importance_config["subsample_size"]),
-            num_shuffle_sets=int(importance_config["num_shuffle_sets"]),
-            time_limit_seconds=int(importance_config["time_limit_seconds"]),
-        )
-
-        predictor_info_path = report_dir / "predictor_info.json"
-        predictor_info_path.write_text(
+        summary_path.write_text(
             json.dumps(
-                predictor.info(),
+                run_summary,
                 indent=2,
-                default=str,
             ),
             encoding="utf-8",
         )
 
-        comparison = create_platform_comparison(
-            all_features_metrics_path=(
-                PROJECT_ROOT
-                / "reports"
-                / "autogluon"
-                / "all_features"
-                / "best_model_metrics.json"
+        comparison = compare_run_summaries(
+            all_features=all_summary,
+            top_features=run_summary,
+        )
+
+        comparison_json_path = (
+            comparison_dir
+            / "all_vs_top_features.json"
+        )
+        comparison_json_path.write_text(
+            json.dumps(
+                comparison,
+                indent=2,
             ),
-            top_features_payload=metrics_payload,
-            output_path=comparison_path,
+            encoding="utf-8",
         )
 
-        mlflow.log_artifact(
-            str(CONFIG_PATH),
-            artifact_path="configuration",
+        comparison_csv_path = (
+            comparison_dir
+            / "all_vs_top_features.csv"
+        )
+        pd.DataFrame(
+            [
+                {
+                    "feature_set": (
+                        "all_features"
+                    ),
+                    "feature_count": (
+                        comparison[
+                            "all_features_count"
+                        ]
+                    ),
+                    "best_model": (
+                        comparison[
+                            "all_features_best_model"
+                        ]
+                    ),
+                    "validation_rmse": (
+                        comparison[
+                            "all_features_validation_rmse"
+                        ]
+                    ),
+                    "test_rmse": (
+                        comparison[
+                            "all_features_test_rmse"
+                        ]
+                    ),
+                    "test_mae": (
+                        comparison[
+                            "all_features_test_mae"
+                        ]
+                    ),
+                    "test_r2": (
+                        comparison[
+                            "all_features_test_r2"
+                        ]
+                    ),
+                    "training_seconds": (
+                        comparison[
+                            "all_features_training_seconds"
+                        ]
+                    ),
+                    "prediction_seconds": (
+                        comparison[
+                            "all_features_prediction_seconds"
+                        ]
+                    ),
+                },
+                {
+                    "feature_set": (
+                        "top_features"
+                    ),
+                    "feature_count": (
+                        comparison[
+                            "top_features_count"
+                        ]
+                    ),
+                    "best_model": (
+                        comparison[
+                            "top_features_best_model"
+                        ]
+                    ),
+                    "validation_rmse": (
+                        comparison[
+                            "top_features_validation_rmse"
+                        ]
+                    ),
+                    "test_rmse": (
+                        comparison[
+                            "top_features_test_rmse"
+                        ]
+                    ),
+                    "test_mae": (
+                        comparison[
+                            "top_features_test_mae"
+                        ]
+                    ),
+                    "test_r2": (
+                        comparison[
+                            "top_features_test_r2"
+                        ]
+                    ),
+                    "training_seconds": (
+                        comparison[
+                            "top_features_training_seconds"
+                        ]
+                    ),
+                    "prediction_seconds": (
+                        comparison[
+                            "top_features_prediction_seconds"
+                        ]
+                    ),
+                },
+            ]
+        ).to_csv(
+            comparison_csv_path,
+            index=False,
         )
 
-        for artifact_path in [
-            selected_features_path,
-            raw_leaderboard_path,
-            leaderboard_path,
-            top_three_score_path,
-            speed_ranking_path,
-            top_three_speed_path,
-            metrics_path,
-            predictions_path,
-            importance_path,
-            predictor_info_path,
-            comparison_path,
-        ]:
-            mlflow.log_artifact(
-                str(artifact_path),
-                artifact_path="reports",
-            )
+        mlflow.log_metrics(
+            {
+                "validation_rmse": (
+                    run_summary[
+                        "validation_rmse"
+                    ]
+                ),
+                "test_rmse": metrics[
+                    "rmse"
+                ],
+                "test_mae": metrics[
+                    "mae"
+                ],
+                "test_r2": metrics["r2"],
+                "training_wall_clock_seconds": (
+                    training_wall_clock_seconds
+                ),
+                "prediction_seconds": (
+                    prediction_seconds
+                ),
+                "validation_rmse_delta_top_minus_all": (
+                    comparison[
+                        "validation_rmse_delta_top_minus_all"
+                    ]
+                ),
+                "test_rmse_delta_top_minus_all": (
+                    comparison[
+                        "test_rmse_delta_top_minus_all"
+                    ]
+                ),
+            }
+        )
+        mlflow.set_tags(
+            {
+                "assignment": (
+                    "ADSP 31021 Assignment 3"
+                ),
+                "platform_mode": (
+                    "full-code"
+                ),
+                "feature_set": (
+                    "top_features"
+                ),
+                "best_model": (
+                    predictor.model_best
+                ),
+                "selected_features": (
+                    ",".join(model_features)
+                ),
+            }
+        )
+        mlflow.log_artifacts(
+            str(report_dir),
+            artifact_path=(
+                "reports/top_features"
+            ),
+        )
+        mlflow.log_artifacts(
+            str(comparison_dir),
+            artifact_path=(
+                "reports/comparison"
+            ),
+        )
 
-        print("AutoGluon top-features run completed.")
-        print("Selected features: " + ", ".join(selected_features))
-        print(f"MLflow run ID: {run.info.run_id}")
-        print(f"Best model: {best_model}")
-        print(f"Best validation RMSE: {best_validation_rmse:.6f}")
-        print(f"Test RMSE: {test_metrics['rmse']:.6f}")
-        print(f"Test MAE: {test_metrics['mae']:.6f}")
-        print(f"Test R²: {test_metrics['r2']:.6f}")
         print(
-            "Reduced feature importance: "
-            + ", ".join(feature_importance["feature"].astype(str).tolist())
+            "AutoGluon top-features run completed."
         )
-        print("Comparison:")
-        print(comparison.to_string(index=False))
-        print("PHASE 2B AUTOGLUON STATUS: PASS")
+        print(
+            f"MLflow run ID: {run.info.run_id}"
+        )
+        print(
+            "Selected features: "
+            + ", ".join(model_features)
+        )
+        print(
+            f"Best model: {predictor.model_best}"
+        )
+        print(
+            "Validation RMSE: "
+            f"{run_summary['validation_rmse']:.6f}"
+        )
+        print(
+            f"Test RMSE: {metrics['rmse']:.6f}"
+        )
+        print(
+            f"Test MAE: {metrics['mae']:.6f}"
+        )
+        print(
+            f"Test R2: {metrics['r2']:.6f}"
+        )
+        print(
+            "Feature-reduction assessment: "
+            + comparison[
+                "validation_performance_assessment"
+            ]
+        )
+        print(
+            f"Reports: {report_dir}"
+        )
+        print(
+            f"Comparison: {comparison_json_path}"
+        )
+        print(
+            "PHASE 2C STATUS: PASS"
+        )
 
 
 if __name__ == "__main__":

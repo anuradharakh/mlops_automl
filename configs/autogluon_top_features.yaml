@@ -1,43 +1,47 @@
 project:
   name: mlops-automl
-  platform: AutoGluon
-  mode: full-code
 
 data:
   train_path: data/splits/train.parquet
   validation_path: data/splits/validation.parquet
   test_path: data/splits/test.parquet
+  all_features_summary_path: reports/autogluon/all_features/run_summary.json
 
 schema:
   target_column: total_lift
   identifier_candidates:
     - athlete_id
     - record_id
+  prohibited_features:
+    - total_lift
+    - deadlift
+    - candj
+    - snatch
+    - backsq
+    - athlete_id
+    - record_id
 
-feature_selection:
-  source_path: reports/autogluon/all_features/top5_features.csv
-  feature_column: feature
-  rank_column: importance_rank
-  top_feature_count: 3
-
-experiment:
-  name: athletes-autogluon
-  run_name: autogluon-top-features
+automl:
+  platform: autogluon
   feature_set: top_features
-  primary_metric: rmse
+  expected_feature_count: 3
+  eval_metric: root_mean_squared_error
+  problem_type: regression
   presets: medium_quality
   time_limit_seconds: 900
+  fit_strategy: sequential
   random_state: 42
+  predictor_path: artifacts/autogluon/top_features
 
 feature_importance:
   subsample_size: 5000
   num_shuffle_sets: 3
-  time_limit_seconds: 300
 
-tracking:
-  uri: sqlite:///mlflow.db
+mlflow:
+  tracking_database: mlflow_autogluon.db
+  experiment_name: athletes_automl_autogluon
+  run_name: autogluon_top_features
 
-outputs:
-  predictor_path: models/autogluon/top_features
-  report_dir: reports/autogluon/top_features
-  comparison_path: reports/comparison/autogluon_all_vs_top_features.csv
+reports:
+  output_dir: reports/autogluon/top_features
+  comparison_dir: reports/autogluon/comparison

@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "mlflow_run_id": "06b14faf59114fcfbdac11ae8653f55f",
+  "platform": "H2O AutoML",
+  "platform_mode": "full-code AutoML",
+  "feature_set": "all_features",
+  "feature_count": 13,
+  "model_features": [
+    "age",
+    "height",
+    "weight",
+    "fran",
+    "helen",
+    "grace",
+    "run5k",
+    "pullups",
+    "gender",
+    "region",
+    "bmi",
+    "age_squared",
+    "weight_height_ratio"
+  ],
+  "best_model": "GBM_2_AutoML_1_20260731_161446",
+  "validation_rmse": 130.70703837556354,
+  "test_rmse": 129.43664056317857,
+  "test_mae": 96.19411272558284,
+  "test_r2": 0.7797247719343763,
+  "training_wall_clock_seconds": 63.45678495900211,
+  "prediction_seconds": 0.27930874999583466,
+  "prediction_rows": 10701,
+  "speed_measure": "training_time_ms",
+  "feature_importance_model": "GBM_2_AutoML_1_20260731_161446",
+  "top_five_features": [
+    "gender",
+    "weight_height_ratio",
+    "fran",
+    "weight",
+    "grace"
+  ],
+  "top_three_features": [
+    "gender",
+    "weight_height_ratio",
+    "fran"
+  ],
+  "saved_model_path": "artifacts/h2o/all_features/GBM_2_AutoML_1_20260731_161446",
+  "package_versions": {
+    "python": "3.11.4",
+    "h2o": "3.46.0.11",
+    "mlflow": "3.14.0",
+    "pandas": "2.3.3",
+    "numpy": "1.26.4"
+  },
+  "validation_strategy": "nfolds=0 with the fixed validation partition used as validation_frame and leaderboard_frame. The fixed test set is used only for final evaluation.",
+  "reproducibility_note": "Seed and max_models are fixed, and DeepLearning is excluded. The 900-second runtime cap remains a resource-dependent secondary stopping condition."
+}

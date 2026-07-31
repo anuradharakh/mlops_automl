@@ -1,0 +1,49 @@
+{
+  "row_counts": {
+    "train": 34243,
+    "validation": 8561,
+    "test": 10701
+  },
+  "feature_count": 13,
+  "numeric_feature_count": 11,
+  "categorical_feature_count": 2,
+  "target_statistics_train": {
+    "minimum": 8.0,
+    "maximum": 2330.0,
+    "mean": 1002.4891510673714,
+    "median": 1020.0,
+    "standard_deviation": 279.0570212661102
+  },
+  "missing_percentage_train": {
+    "helen": 67.84160266331804,
+    "run5k": 65.46155418625705,
+    "grace": 56.68603802236953,
+    "pullups": 52.83707619075432,
+    "fran": 43.822095026720795,
+    "age": 0.0,
+    "height": 0.0,
+    "weight": 0.0,
+    "gender": 0.0,
+    "region": 0.0,
+    "bmi": 0.0,
+    "age_squared": 0.0,
+    "weight_height_ratio": 0.0
+  },
+  "categorical_cardinality_train": {
+    "gender": 3,
+    "region": 17
+  },
+  "absolute_numeric_correlation_with_target": {
+    "weight": 0.6285970090612902,
+    "weight_height_ratio": 0.5804287627100503,
+    "height": 0.5278763021400658,
+    "bmi": 0.43682760882471305,
+    "fran": 0.21218474823616235,
+    "helen": 0.1343699039381035,
+    "age_squared": 0.13176825724652896,
+    "age": 0.12471405124011802,
+    "grace": 0.01591547334945718,
+    "run5k": 0.01155437771983907,
+    "pullups": 0.009411115801577634
+  }
+}

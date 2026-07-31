@@ -1,0 +1,4 @@
+-r requirements.txt
+
+h2o==3.46.0.11
+mlflow==3.14.0

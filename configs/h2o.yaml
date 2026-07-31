@@ -1,0 +1,54 @@
+project:
+  name: mlops-automl
+
+data:
+  train_path: data/splits/train.parquet
+  validation_path: data/splits/validation.parquet
+  test_path: data/splits/test.parquet
+  feature_list_path: reports/data/feature_list.json
+
+schema:
+  target_column: total_lift
+  identifier_candidates:
+    - athlete_id
+    - record_id
+  prohibited_features:
+    - total_lift
+    - deadlift
+    - candj
+    - snatch
+    - backsq
+    - athlete_id
+    - record_id
+
+cluster:
+  max_memory: 8G
+  nthreads: -1
+  port: 54321
+
+automl:
+  platform: h2o
+  feature_set: all_features
+  project_name: athletes_h2o_all_features
+  sort_metric: RMSE
+  stopping_metric: RMSE
+  max_models: 20
+  max_runtime_seconds: 900
+  seed: 42
+  nfolds: 0
+  exclude_algorithms:
+    - DeepLearning
+
+feature_importance:
+  maximum_models_to_check: 10
+
+mlflow:
+  tracking_database: mlflow_autogluon.db
+  experiment_name: athletes_automl_h2o
+  run_name: h2o_all_features
+
+artifacts:
+  model_dir: artifacts/h2o/all_features
+
+reports:
+  output_dir: reports/h2o/all_features

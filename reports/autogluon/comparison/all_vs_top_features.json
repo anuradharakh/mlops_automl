@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "all_features_count": 13,
+  "top_features_count": 3,
+  "selected_top_features": [
+    "gender",
+    "fran",
+    "weight_height_ratio"
+  ],
+  "all_features_best_model": "WeightedEnsemble_L2",
+  "top_features_best_model": "WeightedEnsemble_L2",
+  "all_features_validation_rmse": 125.78332637783177,
+  "top_features_validation_rmse": 142.56750786456158,
+  "validation_rmse_delta_top_minus_all": 16.784181486729807,
+  "all_features_test_rmse": 124.67884352188754,
+  "top_features_test_rmse": 141.97356556634955,
+  "test_rmse_delta_top_minus_all": 17.294722044462006,
+  "all_features_test_mae": 91.37594362085484,
+  "top_features_test_mae": 105.21057555256864,
+  "test_mae_delta_top_minus_all": 13.834631931713801,
+  "all_features_test_r2": 0.7956207858795439,
+  "top_features_test_r2": 0.7349876133435724,
+  "test_r2_delta_top_minus_all": -0.06063317253597145,
+  "all_features_training_seconds": 11.573059666996414,
+  "top_features_training_seconds": 3.9903138340014266,
+  "training_seconds_delta_top_minus_all": -7.582745832994988,
+  "all_features_prediction_seconds": 0.23715512500348268,
+  "top_features_prediction_seconds": 0.20734308299870463,
+  "prediction_seconds_delta_top_minus_all": -0.02981204200477805,
+  "validation_performance_assessment": "degraded",
+  "interpretation": "Negative RMSE and MAE deltas favor the top-feature model. Positive R-squared deltas favor the top-feature model. Negative timing deltas indicate faster execution."
+}
