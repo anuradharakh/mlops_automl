@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import pandas as pd
@@ -22,7 +21,6 @@ from athlete_automl.data.preparation import (
     write_json,
 )
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = PROJECT_ROOT / "configs" / "feature_contract.yaml"
 
@@ -39,9 +37,7 @@ def main() -> None:
 
     raw_path = resolve_path(config["data"]["raw_path"])
     if not raw_path.exists():
-        raise FileNotFoundError(
-            f"Raw dataset not found: {raw_path}"
-        )
+        raise FileNotFoundError(f"Raw dataset not found: {raw_path}")
 
     raw = pd.read_csv(raw_path, low_memory=False)
     raw = normalize_columns(raw)
@@ -62,21 +58,13 @@ def main() -> None:
         dataframe=raw,
         required_numeric=list(feature_config["required_numeric"]),
         optional_numeric=list(feature_config["optional_numeric"]),
-        required_categorical=list(
-            feature_config["required_categorical"]
-        ),
-        optional_categorical=list(
-            feature_config["optional_categorical"]
-        ),
+        required_categorical=list(feature_config["required_categorical"]),
+        optional_categorical=list(feature_config["optional_categorical"]),
     )
 
-    numeric_features = (
-        selected["required_numeric"]
-        + selected["optional_numeric"]
-    )
+    numeric_features = selected["required_numeric"] + selected["optional_numeric"]
     categorical_features = (
-        selected["required_categorical"]
-        + selected["optional_categorical"]
+        selected["required_categorical"] + selected["optional_categorical"]
     )
 
     identifier_config = config["identifiers"]
@@ -114,9 +102,7 @@ def main() -> None:
 
     for column in config["cleaning"].get("positive_only", []):
         if column in prepared.columns:
-            prepared[column] = prepared[column].mask(
-                prepared[column] <= 0
-            )
+            prepared[column] = prepared[column].mask(prepared[column] <= 0)
 
     for column in categorical_features:
         prepared[column] = clean_categorical(raw[column])
@@ -126,33 +112,18 @@ def main() -> None:
         engineered_config=dict(feature_config["engineered"]),
     )
 
-    rows_after_target_filter = int(
-        prepared[target_config["name"]].notna().sum()
-    )
-    prepared = prepared.loc[
-        prepared[target_config["name"]].notna()
-    ].copy()
+    rows_after_target_filter = int(prepared[target_config["name"]].notna().sum())
+    prepared = prepared.loc[prepared[target_config["name"]].notna()].copy()
 
-    missing_identifier_rows = int(
-        prepared[identifier_column].isna().sum()
-    )
-    prepared = prepared.loc[
-        prepared[identifier_column].notna()
-    ].copy()
+    missing_identifier_rows = int(prepared[identifier_column].isna().sum())
+    prepared = prepared.loc[prepared[identifier_column].notna()].copy()
 
-    required_features = (
-        selected["required_numeric"]
-        + selected["required_categorical"]
-    )
+    required_features = selected["required_numeric"] + selected["required_categorical"]
 
     rows_before_required_filter = len(prepared)
     if config["cleaning"]["drop_rows_missing_required_features"]:
-        prepared = prepared.dropna(
-            subset=required_features
-        )
-    rows_removed_for_required_features = (
-        rows_before_required_filter - len(prepared)
-    )
+        prepared = prepared.dropna(subset=required_features)
+    rows_removed_for_required_features = rows_before_required_filter - len(prepared)
 
     duplicate_identifier_rows = int(
         prepared.duplicated(
@@ -166,13 +137,11 @@ def main() -> None:
         before_deduplication = len(prepared)
 
         feature_columns_for_completeness = (
-            numeric_features
-            + categorical_features
-            + engineered_features
+            numeric_features + categorical_features + engineered_features
         )
-        prepared["_feature_completeness"] = prepared[
-            feature_columns_for_completeness
-        ].notna().sum(axis=1)
+        prepared["_feature_completeness"] = (
+            prepared[feature_columns_for_completeness].notna().sum(axis=1)
+        )
 
         prepared = (
             prepared.sort_values(
@@ -193,9 +162,7 @@ def main() -> None:
         duplicates_removed = before_deduplication - len(prepared)
 
     final_feature_columns = (
-        numeric_features
-        + categorical_features
-        + engineered_features
+        numeric_features + categorical_features + engineered_features
     )
 
     ordered_columns = [
@@ -207,16 +174,12 @@ def main() -> None:
     prepared = prepared[ordered_columns].reset_index(drop=True)
 
     if prepared.empty:
-        raise ValueError(
-            "No rows remain after data preparation."
-        )
+        raise ValueError("No rows remain after data preparation.")
 
     splits = split_dataset(
         dataframe=prepared,
         train_size=float(config["split"]["train_size"]),
-        validation_size=float(
-            config["split"]["validation_size"]
-        ),
+        validation_size=float(config["split"]["validation_size"]),
         test_size=float(config["split"]["test_size"]),
         random_state=int(config["split"]["random_state"]),
     )
@@ -225,12 +188,8 @@ def main() -> None:
         identifier_column=identifier_column,
     )
 
-    processed_parquet_path = resolve_path(
-        config["data"]["processed_parquet_path"]
-    )
-    processed_csv_path = resolve_path(
-        config["data"]["processed_csv_path"]
-    )
+    processed_parquet_path = resolve_path(config["data"]["processed_parquet_path"])
+    processed_csv_path = resolve_path(config["data"]["processed_csv_path"])
 
     processed_parquet_path.parent.mkdir(
         parents=True,
@@ -252,9 +211,7 @@ def main() -> None:
 
     split_paths = {
         "train": resolve_path(config["data"]["train_path"]),
-        "validation": resolve_path(
-            config["data"]["validation_path"]
-        ),
+        "validation": resolve_path(config["data"]["validation_path"]),
         "test": resolve_path(config["data"]["test_path"]),
     }
 
@@ -273,9 +230,7 @@ def main() -> None:
         all_raw_columns=raw_columns,
     )
 
-    feature_contract_path = resolve_path(
-        config["reports"]["feature_contract_path"]
-    )
+    feature_contract_path = resolve_path(config["reports"]["feature_contract_path"])
     feature_contract_path.parent.mkdir(
         parents=True,
         exist_ok=True,
@@ -288,17 +243,12 @@ def main() -> None:
     feature_list = {
         "identifier": identifier_column,
         "target": target_config["name"],
-        "numeric_features": numeric_features
-        + engineered_features,
+        "numeric_features": numeric_features + engineered_features,
         "categorical_features": categorical_features,
         "all_model_features": final_feature_columns,
         "feature_count": len(final_feature_columns),
-        "missing_optional_numeric": selected[
-            "missing_optional_numeric"
-        ],
-        "missing_optional_categorical": selected[
-            "missing_optional_categorical"
-        ],
+        "missing_optional_numeric": selected["missing_optional_numeric"],
+        "missing_optional_categorical": selected["missing_optional_categorical"],
     }
     write_json(
         resolve_path(config["reports"]["feature_list_path"]),
@@ -330,9 +280,7 @@ def main() -> None:
             for name, split in splits.items()
         ]
     )
-    split_summary_path = resolve_path(
-        config["reports"]["split_summary_path"]
-    )
+    split_summary_path = resolve_path(config["reports"]["split_summary_path"])
     split_summary_path.parent.mkdir(
         parents=True,
         exist_ok=True,
@@ -351,9 +299,7 @@ def main() -> None:
         "rows_removed_for_missing_required_features": (
             rows_removed_for_required_features
         ),
-        "duplicate_identifier_rows_detected": (
-            duplicate_identifier_rows
-        ),
+        "duplicate_identifier_rows_detected": (duplicate_identifier_rows),
         "duplicate_identifiers_removed": duplicates_removed,
         "final_rows": len(prepared),
         "identifier_column": identifier_column,
@@ -362,51 +308,26 @@ def main() -> None:
         "feature_count": len(final_feature_columns),
         "numeric_features": numeric_features + engineered_features,
         "categorical_features": categorical_features,
-        "split_counts": {
-            name: len(split)
-            for name, split in splits.items()
-        },
+        "split_counts": {name: len(split) for name, split in splits.items()},
         "random_state": int(config["split"]["random_state"]),
         "target_statistics": {
-            "minimum": float(
-                prepared[target_config["name"]].min()
-            ),
-            "maximum": float(
-                prepared[target_config["name"]].max()
-            ),
-            "mean": float(
-                prepared[target_config["name"]].mean()
-            ),
-            "median": float(
-                prepared[target_config["name"]].median()
-            ),
-            "standard_deviation": float(
-                prepared[target_config["name"]].std()
-            ),
+            "minimum": float(prepared[target_config["name"]].min()),
+            "maximum": float(prepared[target_config["name"]].max()),
+            "mean": float(prepared[target_config["name"]].mean()),
+            "median": float(prepared[target_config["name"]].median()),
+            "standard_deviation": float(prepared[target_config["name"]].std()),
         },
         "output_files": {
-            "processed_parquet": str(
-                processed_parquet_path.relative_to(PROJECT_ROOT)
-            ),
-            "processed_csv": str(
-                processed_csv_path.relative_to(PROJECT_ROOT)
-            ),
-            "train": str(
-                split_paths["train"].relative_to(PROJECT_ROOT)
-            ),
-            "validation": str(
-                split_paths["validation"].relative_to(PROJECT_ROOT)
-            ),
-            "test": str(
-                split_paths["test"].relative_to(PROJECT_ROOT)
-            ),
+            "processed_parquet": str(processed_parquet_path.relative_to(PROJECT_ROOT)),
+            "processed_csv": str(processed_csv_path.relative_to(PROJECT_ROOT)),
+            "train": str(split_paths["train"].relative_to(PROJECT_ROOT)),
+            "validation": str(split_paths["validation"].relative_to(PROJECT_ROOT)),
+            "test": str(split_paths["test"].relative_to(PROJECT_ROOT)),
         },
     }
 
     write_json(
-        resolve_path(
-            config["reports"]["preparation_summary_path"]
-        ),
+        resolve_path(config["reports"]["preparation_summary_path"]),
         summary,
     )
 
@@ -416,15 +337,9 @@ def main() -> None:
     print(f"Model features: {len(final_feature_columns)}")
     print(
         "Split counts: "
-        + ", ".join(
-            f"{name}={len(split):,}"
-            for name, split in splits.items()
-        )
+        + ", ".join(f"{name}={len(split):,}" for name, split in splits.items())
     )
-    print(
-        "Sentinel replacements: "
-        f"{target_summary['total_sentinel_replacements']:,}"
-    )
+    print(f"Sentinel replacements: {target_summary['total_sentinel_replacements']:,}")
     print("PHASE 1C STATUS: PASS")
 
 

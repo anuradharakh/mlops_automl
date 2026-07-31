@@ -109,9 +109,7 @@ def test_target_components_are_excluded_from_contract() -> None:
     )
 
     component_actions = contract.loc[
-        contract["column"].isin(
-            ["deadlift", "candj", "snatch", "backsq"]
-        ),
+        contract["column"].isin(["deadlift", "candj", "snatch", "backsq"]),
         "action",
     ]
 
@@ -148,9 +146,10 @@ def test_split_is_deterministic_and_has_no_overlap() -> None:
     assert len(first["test"]) == 20
 
     for split_name in first:
-        assert first[split_name]["athlete_id"].tolist() == second[
-            split_name
-        ]["athlete_id"].tolist()
+        assert (
+            first[split_name]["athlete_id"].tolist()
+            == second[split_name]["athlete_id"].tolist()
+        )
 
     verify_split_integrity(
         splits=first,

@@ -16,16 +16,9 @@ from athlete_automl.data.profiling import (
     convert_to_json_safe,
 )
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
-PROJECT_ROOT = Path(
-    __file__
-).resolve().parents[1]
-
-CONFIG_PATH = (
-    PROJECT_ROOT
-    / "configs"
-    / "automl.yaml"
-)
+CONFIG_PATH = PROJECT_ROOT / "configs" / "automl.yaml"
 
 
 def resolve_path(
@@ -37,20 +30,13 @@ def resolve_path(
 
 def main() -> None:
     """Run raw-data profiling."""
-    with CONFIG_PATH.open(
-        encoding="utf-8"
-    ) as file:
+    with CONFIG_PATH.open(encoding="utf-8") as file:
         config = yaml.safe_load(file)
 
-    raw_path = resolve_path(
-        config["data"]["raw_path"]
-    )
+    raw_path = resolve_path(config["data"]["raw_path"])
 
     if not raw_path.exists():
-        raise FileNotFoundError(
-            f"Raw dataset not found: "
-            f"{raw_path}"
-        )
+        raise FileNotFoundError(f"Raw dataset not found: {raw_path}")
 
     dataframe = pd.read_csv(
         raw_path,
@@ -58,181 +44,81 @@ def main() -> None:
     )
 
     if dataframe.empty:
-        raise ValueError(
-            "Raw dataset is empty."
-        )
+        raise ValueError("Raw dataset is empty.")
 
     if dataframe.columns.duplicated().any():
-        duplicate_columns = (
-            dataframe.columns[
-                dataframe.columns.duplicated()
-            ]
-            .tolist()
-        )
+        duplicate_columns = dataframe.columns[dataframe.columns.duplicated()].tolist()
 
-        raise ValueError(
-            "Duplicate raw columns found: "
-            f"{duplicate_columns}"
-        )
+        raise ValueError(f"Duplicate raw columns found: {duplicate_columns}")
 
     target_config = config["target"]
-    profiling_config = config[
-        "profiling"
-    ]
+    profiling_config = config["profiling"]
 
-    identifier_columns = list(
-        config["excluded_columns"][
-            "identifiers"
-        ]
+    identifier_columns = list(config["excluded_columns"]["identifiers"])
+
+    metadata_columns = list(config["excluded_columns"]["metadata"])
+
+    target_components = list(target_config["components"])
+
+    column_profile = build_column_profile(
+        dataframe=dataframe,
+        target_name=target_config["name"],
+        target_components=(target_components),
+        identifier_columns=(identifier_columns),
+        metadata_columns=(metadata_columns),
+        sample_value_count=int(profiling_config["sample_value_count"]),
     )
 
-    metadata_columns = list(
-        config["excluded_columns"][
-            "metadata"
-        ]
-    )
+    feature_contract = build_feature_contract_draft(column_profile)
 
-    target_components = list(
-        target_config["components"]
-    )
+    identifier_column = identifier_columns[0] if identifier_columns else None
 
-    column_profile = (
-        build_column_profile(
-            dataframe=dataframe,
-            target_name=target_config[
-                "name"
-            ],
-            target_components=(
-                target_components
-            ),
-            identifier_columns=(
-                identifier_columns
-            ),
-            metadata_columns=(
-                metadata_columns
-            ),
-            sample_value_count=int(
-                profiling_config[
-                    "sample_value_count"
-                ]
-            ),
-        )
-    )
-
-    feature_contract = (
-        build_feature_contract_draft(
-            column_profile
-        )
-    )
-
-    identifier_column = (
-        identifier_columns[0]
-        if identifier_columns
-        else None
-    )
-
-    target_readiness = (
-        build_target_readiness_summary(
-            dataframe=dataframe,
-            target_components=(
-                target_components
-            ),
-            sentinel_values=list(
-                target_config[
-                    "sentinel_values"
-                ]
-            ),
-            identifier_column=(
-                identifier_column
-            ),
-        )
+    target_readiness = build_target_readiness_summary(
+        dataframe=dataframe,
+        target_components=(target_components),
+        sentinel_values=list(target_config["sentinel_values"]),
+        identifier_column=(identifier_column),
     )
 
     role_counts = {
         str(role): int(count)
-        for role, count
-        in column_profile[
-            "role"
-        ].value_counts().items()
+        for role, count in column_profile["role"].value_counts().items()
     }
 
     action_counts = {
         str(action): int(count)
-        for action, count
-        in feature_contract[
-            "recommended_action"
-        ].value_counts().items()
+        for action, count in feature_contract["recommended_action"]
+        .value_counts()
+        .items()
     }
 
     profile = {
         "status": "PASS",
         "source": {
-            "path": str(
-                raw_path.relative_to(
-                    PROJECT_ROOT
-                )
-            ),
-            "sha256": (
-                calculate_file_hash(
-                    raw_path
-                )
-            ),
-            "size_bytes": int(
-                raw_path.stat().st_size
-            ),
+            "path": str(raw_path.relative_to(PROJECT_ROOT)),
+            "sha256": (calculate_file_hash(raw_path)),
+            "size_bytes": int(raw_path.stat().st_size),
         },
         "dataset": {
-            "row_count": int(
-                len(dataframe)
-            ),
-            "column_count": int(
-                dataframe.shape[1]
-            ),
-            "duplicate_row_count": int(
-                dataframe.duplicated().sum()
-            ),
+            "row_count": int(len(dataframe)),
+            "column_count": int(dataframe.shape[1]),
+            "duplicate_row_count": int(dataframe.duplicated().sum()),
             "memory_usage_mb": round(
-                float(
-                    dataframe.memory_usage(
-                        deep=True
-                    ).sum()
-                    / 1024
-                    / 1024
-                ),
+                float(dataframe.memory_usage(deep=True).sum() / 1024 / 1024),
                 4,
             ),
-            "columns": (
-                dataframe.columns.tolist()
-            ),
+            "columns": (dataframe.columns.tolist()),
         },
         "column_roles": role_counts,
-        "feature_contract_actions": (
-            action_counts
-        ),
-        "target_readiness": (
-            target_readiness
-        ),
+        "feature_contract_actions": (action_counts),
+        "target_readiness": (target_readiness),
     }
 
-    profile_path = resolve_path(
-        profiling_config[
-            "dataset_profile"
-        ]
-    )
+    profile_path = resolve_path(profiling_config["dataset_profile"])
 
-    column_profile_path = (
-        resolve_path(
-            profiling_config[
-                "column_profile"
-            ]
-        )
-    )
+    column_profile_path = resolve_path(profiling_config["column_profile"])
 
-    contract_path = resolve_path(
-        profiling_config[
-            "feature_contract_draft"
-        ]
-    )
+    contract_path = resolve_path(profiling_config["feature_contract_draft"])
 
     for output_path in [
         profile_path,
@@ -246,9 +132,7 @@ def main() -> None:
 
     profile_path.write_text(
         json.dumps(
-            convert_to_json_safe(
-                profile
-            ),
+            convert_to_json_safe(profile),
             indent=2,
         ),
         encoding="utf-8",
@@ -264,37 +148,14 @@ def main() -> None:
         index=False,
     )
 
-    print(
-        "Raw athlete dataset profiling "
-        "completed successfully."
-    )
-    print(
-        f"Rows: "
-        f"{len(dataframe):,}"
-    )
-    print(
-        f"Columns: "
-        f"{dataframe.shape[1]:,}"
-    )
-    print(
-        "Eligible target rows: "
-        f"{target_readiness['eligible_rows']:,}"
-    )
-    print(
-        "Sentinel replacements: "
-        f"{target_readiness['total_sentinel_replacements']:,}"
-    )
-    print(
-        f"Dataset profile: {profile_path}"
-    )
-    print(
-        f"Column profile: "
-        f"{column_profile_path}"
-    )
-    print(
-        f"Feature contract: "
-        f"{contract_path}"
-    )
+    print("Raw athlete dataset profiling completed successfully.")
+    print(f"Rows: {len(dataframe):,}")
+    print(f"Columns: {dataframe.shape[1]:,}")
+    print(f"Eligible target rows: {target_readiness['eligible_rows']:,}")
+    print(f"Sentinel replacements: {target_readiness['total_sentinel_replacements']:,}")
+    print(f"Dataset profile: {profile_path}")
+    print(f"Column profile: {column_profile_path}")
+    print(f"Feature contract: {contract_path}")
     print("PHASE 1B STATUS: PASS")
 
 

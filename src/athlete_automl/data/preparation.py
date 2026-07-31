@@ -21,16 +21,11 @@ def normalize_column_name(value: str) -> str:
 def normalize_columns(dataframe: pd.DataFrame) -> pd.DataFrame:
     """Return a copy with normalized and unique column names."""
     result = dataframe.copy()
-    result.columns = [
-        normalize_column_name(str(column))
-        for column in result.columns
-    ]
+    result.columns = [normalize_column_name(str(column)) for column in result.columns]
 
     duplicated = result.columns[result.columns.duplicated()].tolist()
     if duplicated:
-        raise ValueError(
-            f"Duplicate columns after normalization: {duplicated}"
-        )
+        raise ValueError(f"Duplicate columns after normalization: {duplicated}")
 
     return result
 
@@ -76,9 +71,7 @@ def parse_numeric_or_time(series: pd.Series) -> pd.Series:
     )
 
     if time_mask.any():
-        numeric.loc[time_mask] = text.loc[time_mask].map(
-            _parse_time_value
-        )
+        numeric.loc[time_mask] = text.loc[time_mask].map(_parse_time_value)
 
     return numeric
 
@@ -123,9 +116,7 @@ def build_target(
     """Create the regression target from all required lift components."""
     missing = sorted(set(components).difference(dataframe.columns))
     if missing:
-        raise ValueError(
-            f"Missing target component columns: {missing}"
-        )
+        raise ValueError(f"Missing target component columns: {missing}")
 
     numeric_components = dataframe[components].apply(
         pd.to_numeric,
@@ -133,18 +124,14 @@ def build_target(
     )
 
     sentinel_counts = {
-        column: int(
-            numeric_components[column].isin(sentinel_values).sum()
-        )
+        column: int(numeric_components[column].isin(sentinel_values).sum())
         for column in components
     }
 
     cleaned_components = numeric_components.mask(
         numeric_components.isin(sentinel_values)
     )
-    cleaned_components = cleaned_components.mask(
-        cleaned_components <= 0
-    )
+    cleaned_components = cleaned_components.mask(cleaned_components <= 0)
 
     target = cleaned_components.sum(
         axis=1,
@@ -155,9 +142,7 @@ def build_target(
     summary = {
         "sentinel_values": list(sentinel_values),
         "sentinel_counts": sentinel_counts,
-        "total_sentinel_replacements": int(
-            sum(sentinel_counts.values())
-        ),
+        "total_sentinel_replacements": int(sum(sentinel_counts.values())),
         "rows_with_complete_target": int(target.notna().sum()),
         "rows_with_incomplete_target": int(target.isna().sum()),
     }
@@ -177,22 +162,16 @@ def select_available_features(
     missing_required = sorted(set(required).difference(dataframe.columns))
 
     if missing_required:
-        raise ValueError(
-            f"Missing required feature columns: {missing_required}"
-        )
+        raise ValueError(f"Missing required feature columns: {missing_required}")
 
     return {
         "required_numeric": required_numeric,
         "optional_numeric": [
-            column
-            for column in optional_numeric
-            if column in dataframe.columns
+            column for column in optional_numeric if column in dataframe.columns
         ],
         "required_categorical": required_categorical,
         "optional_categorical": [
-            column
-            for column in optional_categorical
-            if column in dataframe.columns
+            column for column in optional_categorical if column in dataframe.columns
         ],
         "missing_optional_numeric": sorted(
             set(optional_numeric).difference(dataframe.columns)
@@ -228,9 +207,7 @@ def add_engineered_features(
         "height",
     }.issubset(result.columns):
         valid_height = result["height"].where(result["height"] > 0)
-        result["weight_height_ratio"] = (
-            result["weight"] / valid_height
-        )
+        result["weight_height_ratio"] = result["weight"] / valid_height
         created.append("weight_height_ratio")
 
     return result, created
@@ -246,11 +223,7 @@ def build_feature_contract(
     all_raw_columns: list[str],
 ) -> pd.DataFrame:
     """Create the final documented feature inclusion contract."""
-    included = set(
-        numeric_features
-        + categorical_features
-        + engineered_features
-    )
+    included = set(numeric_features + categorical_features + engineered_features)
 
     records: list[dict[str, Any]] = []
 
@@ -278,9 +251,7 @@ def build_feature_contract(
         else:
             role = "unused_raw_column"
             action = "exclude"
-            reason = (
-                "Not selected for the reproducible tabular AutoML feature set."
-            )
+            reason = "Not selected for the reproducible tabular AutoML feature set."
 
         records.append(
             {
@@ -319,9 +290,7 @@ def split_dataset(
     """Create deterministic train, validation, and test partitions."""
     total = train_size + validation_size + test_size
     if not np.isclose(total, 1.0):
-        raise ValueError(
-            "Train, validation, and test fractions must sum to 1.0."
-        )
+        raise ValueError("Train, validation, and test fractions must sum to 1.0.")
 
     train_validation, test = train_test_split(
         dataframe,
@@ -330,9 +299,7 @@ def split_dataset(
         shuffle=True,
     )
 
-    validation_fraction_of_remaining = validation_size / (
-        train_size + validation_size
-    )
+    validation_fraction_of_remaining = validation_size / (train_size + validation_size)
 
     train, validation = train_test_split(
         train_validation,
@@ -365,13 +332,10 @@ def verify_split_integrity(
     ]
 
     for left, right in pairs:
-        overlap = identifier_sets[left].intersection(
-            identifier_sets[right]
-        )
+        overlap = identifier_sets[left].intersection(identifier_sets[right])
         if overlap:
             raise ValueError(
-                f"Identifier overlap between {left} and {right}: "
-                f"{len(overlap)} records"
+                f"Identifier overlap between {left} and {right}: {len(overlap)} records"
             )
 
 
