@@ -9,11 +9,11 @@
     "bmi"
   ],
   "feature_metadata_in": "('float', [])  : 2 | ['height', 'bmi']\n('object', []) : 1 | ['region']",
-  "time_fit_preprocessing": 0.04160881042480469,
-  "time_fit_training": 2.4026682376861572,
-  "time_fit_total": 2.444277048110962,
+  "time_fit_preprocessing": 0.0420989990234375,
+  "time_fit_training": 2.4514200687408447,
+  "time_fit_total": 2.4935190677642822,
   "time_limit": 900,
-  "time_train_start": 1785502087.047266,
+  "time_train_start": 1785502311.8982122,
   "num_rows_train": 34261,
   "num_cols_train": 3,
   "num_rows_val": 8566,
@@ -35,10 +35,10 @@
       "problem_type": "regression",
       "eval_metric": "root_mean_squared_error",
       "stopping_metric": "root_mean_squared_error",
-      "fit_time": 1.053067922592163,
+      "fit_time": 1.0817012786865234,
       "num_classes": null,
       "quantile_levels": null,
-      "predict_time": 0.0675802230834961,
+      "predict_time": 0.06713128089904785,
       "val_score": -22859.709498469856,
       "hyperparameters": {
         "n_estimators": 300,
@@ -102,10 +102,10 @@
       "problem_type": "regression",
       "eval_metric": "root_mean_squared_error",
       "stopping_metric": "root_mean_squared_error",
-      "fit_time": 0.5110280513763428,
+      "fit_time": 0.5058629512786865,
       "num_classes": null,
       "quantile_levels": null,
-      "predict_time": 0.06719422340393066,
+      "predict_time": 0.06239008903503418,
       "val_score": -23171.507795908907,
       "hyperparameters": {
         "n_estimators": 300,
@@ -169,10 +169,10 @@
       "problem_type": "regression",
       "eval_metric": "root_mean_squared_error",
       "stopping_metric": "root_mean_squared_error",
-      "fit_time": 0.011549234390258789,
+      "fit_time": 0.011902809143066406,
       "num_classes": null,
       "quantile_levels": null,
-      "predict_time": 0.0002110004425048828,
+      "predict_time": 0.00019502639770507812,
       "val_score": -21555.30439901677,
       "hyperparameters": {
         "use_orig_features": false,
@@ -210,8 +210,8 @@
       },
       "num_features": 2,
       "features": [
-        "RandomForestMSE",
-        "ExtraTreesMSE"
+        "ExtraTreesMSE",
+        "RandomForestMSE"
       ],
       "feature_metadata": "('float', ['stack']) : 2 | ['RandomForestMSE', 'ExtraTreesMSE']",
       "memory_size": 3176,
@@ -279,7 +279,7 @@
           "problem_type": "regression",
           "eval_metric": "root_mean_squared_error",
           "stopping_metric": "root_mean_squared_error",
-          "fit_time": 0.011549234390258789,
+          "fit_time": 0.011902809143066406,
           "num_classes": null,
           "quantile_levels": null,
           "predict_time": null,
@@ -401,7 +401,7 @@
         "num_cpus": 12,
         "num_gpus": 0
       },
-      "total_time": 0.012398719787597656
+      "total_time": 0.013051033020019531
     },
     "LightGBM": {
       "exc_type": "ImportError",
@@ -464,7 +464,7 @@
         "num_cpus": 12,
         "num_gpus": 0
       },
-      "total_time": 0.0025768280029296875
+      "total_time": 0.0025632381439208984
     },
     "CatBoost": {
       "exc_type": "ImportError",
@@ -530,7 +530,7 @@
         "num_cpus": 12,
         "num_gpus": 0
       },
-      "total_time": 0.0028028488159179688
+      "total_time": 0.0034990310668945312
     },
     "NeuralNetFastAI": {
       "exc_type": "ImportError",
@@ -604,7 +604,7 @@
         "num_cpus": 12,
         "num_gpus": 0
       },
-      "total_time": 0.003007173538208008
+      "total_time": 0.002930164337158203
     },
     "XGBoost": {
       "exc_type": "ImportError",
@@ -672,7 +672,7 @@
         "num_cpus": 12,
         "num_gpus": 0
       },
-      "total_time": 0.02277088165283203
+      "total_time": 0.022792339324951172
     },
     "NeuralNetTorch": {
       "exc_type": "ImportError",
@@ -759,7 +759,7 @@
         "num_cpus": 12,
         "num_gpus": 0
       },
-      "total_time": 0.0033957958221435547
+      "total_time": 0.0031719207763671875
     },
     "LightGBMLarge": {
       "exc_type": "ImportError",
@@ -835,7 +835,7 @@
         "num_cpus": 12,
         "num_gpus": 0
       },
-      "total_time": 0.0026051998138427734
+      "total_time": 0.0029668807983398438
     }
   }
 }
