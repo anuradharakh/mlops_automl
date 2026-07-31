@@ -1,0 +1,244 @@
+{
+  "status": "PASS",
+  "failure_count": 0,
+  "warning_count": 0,
+  "failures": [],
+  "warnings": [],
+  "checks": [
+    {
+      "check": "file:feature_list",
+      "status": "PASS",
+      "details": "reports/data/feature_list.json"
+    },
+    {
+      "check": "file:target_quality",
+      "status": "PASS",
+      "details": "reports/data/target_quality_summary.json"
+    },
+    {
+      "check": "file:split_summary",
+      "status": "PASS",
+      "details": "reports/data/split_summary.csv"
+    },
+    {
+      "check": "file:autogluon_all_summary",
+      "status": "PASS",
+      "details": "reports/autogluon/all_features/run_summary.json"
+    },
+    {
+      "check": "file:autogluon_all_score",
+      "status": "PASS",
+      "details": "reports/autogluon/all_features/top3_by_score.csv"
+    },
+    {
+      "check": "file:autogluon_all_speed",
+      "status": "PASS",
+      "details": "reports/autogluon/all_features/top3_by_speed.csv"
+    },
+    {
+      "check": "file:autogluon_all_features",
+      "status": "PASS",
+      "details": "reports/autogluon/all_features/top5_features.csv"
+    },
+    {
+      "check": "file:autogluon_top_summary",
+      "status": "PASS",
+      "details": "reports/autogluon/top_features/run_summary.json"
+    },
+    {
+      "check": "file:autogluon_top_score",
+      "status": "PASS",
+      "details": "reports/autogluon/top_features/top3_by_score.csv"
+    },
+    {
+      "check": "file:autogluon_top_speed",
+      "status": "PASS",
+      "details": "reports/autogluon/top_features/top3_by_speed.csv"
+    },
+    {
+      "check": "file:autogluon_comparison",
+      "status": "PASS",
+      "details": "reports/autogluon/comparison/all_vs_top_features.json"
+    },
+    {
+      "check": "file:h2o_data_insights",
+      "status": "PASS",
+      "details": "reports/h2o/all_features/data_insights.json"
+    },
+    {
+      "check": "file:h2o_all_summary",
+      "status": "PASS",
+      "details": "reports/h2o/all_features/run_summary.json"
+    },
+    {
+      "check": "file:h2o_all_score",
+      "status": "PASS",
+      "details": "reports/h2o/all_features/top3_by_score.csv"
+    },
+    {
+      "check": "file:h2o_all_speed",
+      "status": "PASS",
+      "details": "reports/h2o/all_features/top3_by_training_speed.csv"
+    },
+    {
+      "check": "file:h2o_all_features",
+      "status": "PASS",
+      "details": "reports/h2o/all_features/top5_features.csv"
+    },
+    {
+      "check": "file:h2o_top_summary",
+      "status": "PASS",
+      "details": "reports/h2o/top_features/run_summary.json"
+    },
+    {
+      "check": "file:h2o_top_score",
+      "status": "PASS",
+      "details": "reports/h2o/top_features/top3_by_score.csv"
+    },
+    {
+      "check": "file:h2o_top_speed",
+      "status": "PASS",
+      "details": "reports/h2o/top_features/top3_by_training_speed.csv"
+    },
+    {
+      "check": "file:h2o_comparison",
+      "status": "PASS",
+      "details": "reports/h2o/comparison/all_vs_top_features.json"
+    },
+    {
+      "check": "file:reconstructed_baseline",
+      "status": "PASS",
+      "details": "reports/baseline/run_summary.json"
+    },
+    {
+      "check": "file:final_comparison",
+      "status": "PASS",
+      "details": "reports/final_comparison/platform_comparison.csv"
+    },
+    {
+      "check": "file:recommendation",
+      "status": "PASS",
+      "details": "reports/final_comparison/recommendation.json"
+    },
+    {
+      "check": "file:feature_overlap",
+      "status": "PASS",
+      "details": "reports/final_comparison/feature_overlap.json"
+    },
+    {
+      "check": "file:test_rmse_plot",
+      "status": "PASS",
+      "details": "reports/final_comparison/test_rmse_comparison.png"
+    },
+    {
+      "check": "file:training_time_plot",
+      "status": "PASS",
+      "details": "reports/final_comparison/training_time_comparison.png"
+    },
+    {
+      "check": "file:generated_report",
+      "status": "PASS",
+      "details": "submission/assignment3_report.md"
+    },
+    {
+      "check": "file:evidence_manifest",
+      "status": "PASS",
+      "details": "submission/evidence_manifest.csv"
+    },
+    {
+      "check": "file:requirements",
+      "status": "PASS",
+      "details": "requirements.txt"
+    },
+    {
+      "check": "file:requirements_automl",
+      "status": "PASS",
+      "details": "requirements-automl.txt"
+    },
+    {
+      "check": "file:requirements_h2o",
+      "status": "PASS",
+      "details": "requirements-h2o.txt"
+    },
+    {
+      "check": "file:pyproject",
+      "status": "PASS",
+      "details": "pyproject.toml"
+    },
+    {
+      "check": "run_status:autogluon_all_summary",
+      "status": "PASS",
+      "details": "status=PASS"
+    },
+    {
+      "check": "run_status:autogluon_top_summary",
+      "status": "PASS",
+      "details": "status=PASS"
+    },
+    {
+      "check": "run_status:h2o_all_summary",
+      "status": "PASS",
+      "details": "status=PASS"
+    },
+    {
+      "check": "run_status:h2o_top_summary",
+      "status": "PASS",
+      "details": "status=PASS"
+    },
+    {
+      "check": "row_count:autogluon_all_score",
+      "status": "PASS",
+      "details": "rows=3, minimum=3"
+    },
+    {
+      "check": "row_count:autogluon_all_speed",
+      "status": "PASS",
+      "details": "rows=3, minimum=3"
+    },
+    {
+      "check": "row_count:autogluon_top_score",
+      "status": "PASS",
+      "details": "rows=3, minimum=3"
+    },
+    {
+      "check": "row_count:autogluon_top_speed",
+      "status": "PASS",
+      "details": "rows=3, minimum=3"
+    },
+    {
+      "check": "row_count:h2o_all_score",
+      "status": "PASS",
+      "details": "rows=3, minimum=3"
+    },
+    {
+      "check": "row_count:h2o_all_speed",
+      "status": "PASS",
+      "details": "rows=3, minimum=3"
+    },
+    {
+      "check": "row_count:h2o_top_score",
+      "status": "PASS",
+      "details": "rows=3, minimum=3"
+    },
+    {
+      "check": "row_count:h2o_top_speed",
+      "status": "PASS",
+      "details": "rows=3, minimum=3"
+    },
+    {
+      "check": "row_count:autogluon_all_features",
+      "status": "PASS",
+      "details": "rows=5, minimum=5"
+    },
+    {
+      "check": "row_count:h2o_all_features",
+      "status": "PASS",
+      "details": "rows=5, minimum=5"
+    },
+    {
+      "check": "assignment_author",
+      "status": "PASS",
+      "details": "Anuradha Rakh"
+    }
+  ]
+}

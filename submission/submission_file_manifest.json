@@ -1,0 +1,842 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 6051,
+    "sha256": "53e7849dec7c8c002e3804760bf21290c2850dc17796d4acee677ebf41325a24"
+  },
+  {
+    "path": "configs/assignment1_baseline.yaml",
+    "bytes": 942,
+    "sha256": "7d0200b935266f8b27cbbf9769273b4fb61c767a1a23be6286386a5cad9ac597"
+  },
+  {
+    "path": "configs/autogluon.yaml",
+    "bytes": 939,
+    "sha256": "144c5b18acd8d3612ae78134d852ba4282d41587a33dc6da98d0ddfa63a4209f"
+  },
+  {
+    "path": "configs/autogluon_top_features.yaml",
+    "bytes": 1063,
+    "sha256": "073ccc958ffd13b9df02119b60cb75e193c3b17199ef300522aa8f0f5515415f"
+  },
+  {
+    "path": "configs/automl.yaml",
+    "bytes": 1273,
+    "sha256": "4542f5d7d3aeadcaff62129c003f958c6e2c7a9063729f4642b2973f68d3b151"
+  },
+  {
+    "path": "configs/baseline.yaml",
+    "bytes": 898,
+    "sha256": "0753f68278491363864ef247eefc8bd63f0880a8fb8274a2377924e36659c219"
+  },
+  {
+    "path": "configs/databricks.yaml",
+    "bytes": 700,
+    "sha256": "44f4254ec918cea97964b711b0cb011f3d4befdb1f8a32f113299a5c095316ea"
+  },
+  {
+    "path": "configs/feature_contract.yaml",
+    "bytes": 1632,
+    "sha256": "da69b8f46a5cdede3430a58e7eaae6fac43c03569ee1c1d6c68140699df15488"
+  },
+  {
+    "path": "configs/final_comparison.yaml",
+    "bytes": 434,
+    "sha256": "ef72a0ac27d97b2967fed34fe7fb065519ac82ec790f8f1fde7fd06332367535"
+  },
+  {
+    "path": "configs/h2o.yaml",
+    "bytes": 1011,
+    "sha256": "c9f81d6ecca1c410d043e4aa296154b53ca2bc5e9625893544e9fb6568e5b682"
+  },
+  {
+    "path": "configs/h2o_top_features.yaml",
+    "bytes": 1103,
+    "sha256": "a6e369664685d35ae014a5ac127e222539e390f606637037c5cb7fdfd986516c"
+  },
+  {
+    "path": "configs/submission.yaml",
+    "bytes": 4570,
+    "sha256": "a946724a3b37cac588772e407b3c5e2baa32e8275d65920c758852bc7f1f7fcc"
+  },
+  {
+    "path": "configs/target_quality.yaml",
+    "bytes": 573,
+    "sha256": "df089fa965fe884f8c0e02ca70cdf63b8c47425ed485dd137f5746f4b73b1dd4"
+  },
+  {
+    "path": "docs/README_assignment3_section.md",
+    "bytes": 2167,
+    "sha256": "7b9339e6489e7d16d0f6a162028b7c9d063e59e1cbffd1ca8cb95ec8941cb747"
+  },
+  {
+    "path": "docs/autogluon_import_hotfix.md",
+    "bytes": 471,
+    "sha256": "3a2bc5bc03b3484ab777843cb16d89fb627c3ea8ef3c768d05aec05d5fc25397"
+  },
+  {
+    "path": "docs/canvas_submission_note.txt",
+    "bytes": 562,
+    "sha256": "e78c9ce4ab5a4a845a8678a476b428de797776526bbe6620930404d3a5478f37"
+  },
+  {
+    "path": "docs/data_preparation.md",
+    "bytes": 1387,
+    "sha256": "12c617c5ed9bd4dc1c24eef8d0b5f335389491af95934362343003499d1f87d2"
+  },
+  {
+    "path": "docs/phase_1d_target_quality.md",
+    "bytes": 799,
+    "sha256": "280870de9e63ff9da5da67e95e0e7a525a260e420988513e065c66ceb01a165d"
+  },
+  {
+    "path": "docs/phase_2_autogluon_all_features.md",
+    "bytes": 2358,
+    "sha256": "98a999d084b120b9a451324c86e1619270079fe399cd20603945b297a5a080e2"
+  },
+  {
+    "path": "docs/phase_2a_databricks_all_features.md",
+    "bytes": 1556,
+    "sha256": "f1d355a8211ebe5e07599438e2e5d1356e482ffc283414a69445abe3afe39c7c"
+  },
+  {
+    "path": "docs/phase_2b_autogluon_all_features.md",
+    "bytes": 2289,
+    "sha256": "4fc7fb9bd505de0c56d0d2d1b52091d10ca90638e2ecb38dd348c0a8fba7c733"
+  },
+  {
+    "path": "docs/phase_2b_autogluon_top_features.md",
+    "bytes": 2358,
+    "sha256": "141b4ef2f56472dce5768d6c96306d6dad41a3977f2881cb538de88633238f03"
+  },
+  {
+    "path": "docs/phase_2c_autogluon_top_features.md",
+    "bytes": 1900,
+    "sha256": "cc8345a494fe62d85daad719f63e11607315424afac0d2198913e4ee49408ea2"
+  },
+  {
+    "path": "docs/phase_3a_h2o_all_features.md",
+    "bytes": 2748,
+    "sha256": "d473d7499df53a6de6870dd56129d4e29fa24b52ed98232e1a5d054b01beec17"
+  },
+  {
+    "path": "docs/phase_3b_h2o_top_features.md",
+    "bytes": 2149,
+    "sha256": "2f6ebef09a9dab602b0cdc6dc469619353aa3f9c6f6a798dd2e675344d94a0f6"
+  },
+  {
+    "path": "docs/phase_4_baseline_and_comparison.md",
+    "bytes": 2471,
+    "sha256": "4a5a336bc15a4219bb383081d0c304ba8d5c0fb57e17f3b4d4ef1bcba0d84bc7"
+  },
+  {
+    "path": "docs/phase_5_reporting_and_submission.md",
+    "bytes": 3513,
+    "sha256": "7efe5ea0178340e8ffb223813259f4eed9485b1bbf56c202bb31044f30fdf870"
+  },
+  {
+    "path": "docs/platform_decision.md",
+    "bytes": 478,
+    "sha256": "410913b35e42d93f78c361b02fb3564c625423d96a76667a71e5fd351cc50af3"
+  },
+  {
+    "path": "docs/submission_checklist.md",
+    "bytes": 1639,
+    "sha256": "538726eac9e42292282ab004428d390ff89e5c86cdc68638a1d627920f3b5ca1"
+  },
+  {
+    "path": "pyproject.toml",
+    "bytes": 790,
+    "sha256": "f056e730229cc5fc1e045d08d5a1d39ce7bb1062bf048d02e149ce137e91633e"
+  },
+  {
+    "path": "reports/autogluon/all_features/actual_vs_predicted.png",
+    "bytes": 253109,
+    "sha256": "eb4a1fc7b6bedf0e611b5aff330ad6eb48f73a90640d6526bb3d751624981a92"
+  },
+  {
+    "path": "reports/autogluon/all_features/autogluon_raw_leaderboard.csv",
+    "bytes": 4008,
+    "sha256": "648d5a81b2d1ce78bb5c89f16cdf385c413abcdfe83eea5b3c89fc89643f8b89"
+  },
+  {
+    "path": "reports/autogluon/all_features/best_model_metrics.json",
+    "bytes": 389,
+    "sha256": "faf5b2ff55084f1653d526c5bc921c80ea48b49433800e5e7df921a5ba8e9912"
+  },
+  {
+    "path": "reports/autogluon/all_features/best_model_test_predictions.csv",
+    "bytes": 451428,
+    "sha256": "b53d28c90cc4a67a580e0307fbdf9a511646c74a388faf01c2da75cc64b03343"
+  },
+  {
+    "path": "reports/autogluon/all_features/data_insights.json",
+    "bytes": 1073,
+    "sha256": "8895afa75902aac81554470f1c562abcbdfc0075e70f409f033fac0e838f7b51"
+  },
+  {
+    "path": "reports/autogluon/all_features/feature_importance.csv",
+    "bytes": 1433,
+    "sha256": "356cf35761304228b8799b77bd930cb01acae6d9a8d74d3435e1b95f1ca15181"
+  },
+  {
+    "path": "reports/autogluon/all_features/feature_importance.png",
+    "bytes": 46562,
+    "sha256": "af52a97fbd1d0247ccdcaf8207ce6748a8a8c875f101ac5d963ce26d5277a26b"
+  },
+  {
+    "path": "reports/autogluon/all_features/leaderboard.csv",
+    "bytes": 5152,
+    "sha256": "23138a7eff4406d8247adb43a79775bf15c837fd1f2efe0c9d12bbec2e6937f3"
+  },
+  {
+    "path": "reports/autogluon/all_features/leaderboard_by_training_speed.csv",
+    "bytes": 475,
+    "sha256": "1f3299f691a4b950d562a6dce17ed1f11d749a81c17b6e6f1f73d623a55f097c"
+  },
+  {
+    "path": "reports/autogluon/all_features/leaderboard_by_validation_score.csv",
+    "bytes": 458,
+    "sha256": "b2760493062bcbd35f610d19bf1b3807af7c7c8d21f65b15d63f0b5f60e00694"
+  },
+  {
+    "path": "reports/autogluon/all_features/leaderboard_rmse.png",
+    "bytes": 42881,
+    "sha256": "d1788e8a7e7f0b93a38019b3d55494353bdc27597d1a00c8dfeeb25936a0a9b1"
+  },
+  {
+    "path": "reports/autogluon/all_features/predictor_info.json",
+    "bytes": 42286,
+    "sha256": "8c3c8e86760195c45108cb271ed8705bbe1d243d6f7de04af2162cdddeb7c7b7"
+  },
+  {
+    "path": "reports/autogluon/all_features/run_summary.json",
+    "bytes": 1367,
+    "sha256": "45d370bec1384ebc89c3449f9a8bee7e51b4236346744da2f0e6992bfb9f4bae"
+  },
+  {
+    "path": "reports/autogluon/all_features/top3_by_score.csv",
+    "bytes": 4118,
+    "sha256": "a1dda54aafdc662c9716a748cdae46a92372cc0295189404ffa1b53cde3a19a5"
+  },
+  {
+    "path": "reports/autogluon/all_features/top3_by_speed.csv",
+    "bytes": 4149,
+    "sha256": "12d4ca72a05a2ac71c5af554ae3f073eb2ff5b0e5e157e6fa6f9eedd16dcb928"
+  },
+  {
+    "path": "reports/autogluon/all_features/top3_models_by_training_speed.csv",
+    "bytes": 475,
+    "sha256": "1f3299f691a4b950d562a6dce17ed1f11d749a81c17b6e6f1f73d623a55f097c"
+  },
+  {
+    "path": "reports/autogluon/all_features/top3_models_by_validation_score.csv",
+    "bytes": 458,
+    "sha256": "b2760493062bcbd35f610d19bf1b3807af7c7c8d21f65b15d63f0b5f60e00694"
+  },
+  {
+    "path": "reports/autogluon/all_features/top5_features.csv",
+    "bytes": 590,
+    "sha256": "7abbe6c3e7798e08b40a1a1422ddf7e9d470423506c06eaedffd6cf1da5b9c86"
+  },
+  {
+    "path": "reports/autogluon/comparison/all_vs_top_features.csv",
+    "bytes": 416,
+    "sha256": "484bcd9654380303d91c94243fc01637038c03a8946eca08e1d34a91f4366f1a"
+  },
+  {
+    "path": "reports/autogluon/comparison/all_vs_top_features.json",
+    "bytes": 1472,
+    "sha256": "eb6550be212c1490bff32ba30da6f1e2f21bb24a6d76ab5da3a40fd70eca784b"
+  },
+  {
+    "path": "reports/autogluon/top_features/actual_vs_predicted.png",
+    "bytes": 254212,
+    "sha256": "4ba4ce22732d42bbac7c9ce4e9df268535c69503ac311366aca94c4558d161ec"
+  },
+  {
+    "path": "reports/autogluon/top_features/autogluon_raw_leaderboard.csv",
+    "bytes": 3782,
+    "sha256": "9162e2d4276c86a975b161caa96d7f5b809cf8561c15c92dfd2b406828dec0e5"
+  },
+  {
+    "path": "reports/autogluon/top_features/best_model_metrics.json",
+    "bytes": 681,
+    "sha256": "a6ce93f984a9b24eaee1984c2ae9f72f0092cce56960f634aec5aa4d080fdbea"
+  },
+  {
+    "path": "reports/autogluon/top_features/best_model_test_predictions.csv",
+    "bytes": 448825,
+    "sha256": "9e30ec32012e3e9987b3ef45a962ec75003abf47bdfa0bee9cf5fc9c6c1fdda6"
+  },
+  {
+    "path": "reports/autogluon/top_features/feature_importance.csv",
+    "bytes": 374,
+    "sha256": "51f0601338c55326d6dca60d816671e38d65f885de34f1809cd31d7f9db9581a"
+  },
+  {
+    "path": "reports/autogluon/top_features/feature_importance.png",
+    "bytes": 34517,
+    "sha256": "0ce4a8cca4a8a420ab00165b9e87b76e3266b2ab07104d0f93262ff80c09a6fd"
+  },
+  {
+    "path": "reports/autogluon/top_features/leaderboard.csv",
+    "bytes": 4857,
+    "sha256": "1baa4fcd2438c042d10f6e17ac290725c0cc5c2d669c5896d5e7ae2a13baa48b"
+  },
+  {
+    "path": "reports/autogluon/top_features/leaderboard_by_training_speed.csv",
+    "bytes": 516,
+    "sha256": "80a92ab68ac8d4c2132e206f23fa6fbcf2444b2aa952dbda8a0a570185b7be3d"
+  },
+  {
+    "path": "reports/autogluon/top_features/leaderboard_by_validation_score.csv",
+    "bytes": 499,
+    "sha256": "70aa240df79cb405dfee2f527faab9604c39b9881d6e05b9ad9012e86a788eab"
+  },
+  {
+    "path": "reports/autogluon/top_features/leaderboard_rmse.png",
+    "bytes": 43570,
+    "sha256": "ed6016f7488679fbde08bcd2feca4ef09d9e39c4c95062261f7f8e507fecc98d"
+  },
+  {
+    "path": "reports/autogluon/top_features/predictor_info.json",
+    "bytes": 39375,
+    "sha256": "1877c4e189a425c90dce8364a703045d5e827c12df784d44bedf4912d3fb6ef6"
+  },
+  {
+    "path": "reports/autogluon/top_features/run_summary.json",
+    "bytes": 988,
+    "sha256": "e6183f65dcdc2306abed5b60086f43375d4243445ec590e6db38945bcb507469"
+  },
+  {
+    "path": "reports/autogluon/top_features/selected_top3_features.json",
+    "bytes": 156,
+    "sha256": "18fe9301235d2692c908ccbc6fb78212bf7825eebbeb3aba196f70863cd0b99e"
+  },
+  {
+    "path": "reports/autogluon/top_features/top3_by_score.csv",
+    "bytes": 3919,
+    "sha256": "d933137f2c4267333148518f40503627c2a4ec913dc29d9659248f38027ab803"
+  },
+  {
+    "path": "reports/autogluon/top_features/top3_by_speed.csv",
+    "bytes": 3936,
+    "sha256": "151e4e4737468295760735467bbb5366aa96d92f92ad014afbbdfa58018c8e04"
+  },
+  {
+    "path": "reports/autogluon/top_features/top3_models_by_training_speed.csv",
+    "bytes": 516,
+    "sha256": "80a92ab68ac8d4c2132e206f23fa6fbcf2444b2aa952dbda8a0a570185b7be3d"
+  },
+  {
+    "path": "reports/autogluon/top_features/top3_models_by_validation_score.csv",
+    "bytes": 499,
+    "sha256": "70aa240df79cb405dfee2f527faab9604c39b9881d6e05b9ad9012e86a788eab"
+  },
+  {
+    "path": "reports/baseline/baseline_leaderboard.csv",
+    "bytes": 538,
+    "sha256": "e00ebae3f0f5a9f0e8f82ab6f880419fce4e9f03cf102f6cd4c7dd01f4565302"
+  },
+  {
+    "path": "reports/baseline/feature_importance.csv",
+    "bytes": 631,
+    "sha256": "043ed3ac531bd454b66f2fea688832a2e56bfdbe8d0030cd3770059afc7d4aa7"
+  },
+  {
+    "path": "reports/baseline/run_summary.json",
+    "bytes": 1627,
+    "sha256": "2bb38795bc04207369eedfacd6f41c7dd9a2e76102f242883b9ea1365d57caac"
+  },
+  {
+    "path": "reports/comparison/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "reports/comparison/autogluon_all_vs_top_features.csv",
+    "bytes": 545,
+    "sha256": "eb08d683b696279f20c293a5ebc9d6343ddc801fddf02987d0e556a46efad0bd"
+  },
+  {
+    "path": "reports/databricks/all_features/dataset_export_summary.json",
+    "bytes": 864,
+    "sha256": "8db12679361f310d29d1d7043d7726ecbc9a2f5e53d35c33922912e40b0d195e"
+  },
+  {
+    "path": "reports/final_comparison/feature_overlap.json",
+    "bytes": 1399,
+    "sha256": "31f9ec8e938bc907c1e7ace446ad11a0876e815eb9ed3ffb00c7d4848e10d9f9"
+  },
+  {
+    "path": "reports/final_comparison/final_comparison_report.md",
+    "bytes": 2095,
+    "sha256": "fdcba18fffe01d0d66b3e0c45a0dfbcc6a0c72f68d9bff9baabbea0a27add63f"
+  },
+  {
+    "path": "reports/final_comparison/platform_comparison.csv",
+    "bytes": 1826,
+    "sha256": "f0359150024fdf7f05bf21e28633d146997b4265f135e1d1e8040ba248cc172b"
+  },
+  {
+    "path": "reports/final_comparison/recommendation.json",
+    "bytes": 784,
+    "sha256": "6fd8bae02e28c18441b24900662c29615642acc41d071b1845b3a0ea61417df9"
+  },
+  {
+    "path": "reports/final_comparison/test_r2_comparison.png",
+    "bytes": 58573,
+    "sha256": "bebf488bd7e779a2d7a1ba3172ccc910cd2c7e91862f484c3ad3e06e8da1b84b"
+  },
+  {
+    "path": "reports/final_comparison/test_rmse_comparison.png",
+    "bytes": 56125,
+    "sha256": "39443f7719fc86b8aebd846eb416b529ac95435d4cb6026fbe94c45741f0b1f6"
+  },
+  {
+    "path": "reports/final_comparison/training_time_comparison.png",
+    "bytes": 58427,
+    "sha256": "77a24713d990ed81548e5058609cf6ac0bbbada39c4a43e4246cb12503f3d627"
+  },
+  {
+    "path": "reports/h2o/all_features/actual_vs_predicted.png",
+    "bytes": 252885,
+    "sha256": "aec3f2b52519a12aea2be8bdd54418e922045b5fdce2d4d558cb64a81ee9995c"
+  },
+  {
+    "path": "reports/h2o/all_features/data_insights.json",
+    "bytes": 1232,
+    "sha256": "158513d98a94e63040d1a214dc3032ae2bf41f3e4dd5e3bda04fde58d6d68003"
+  },
+  {
+    "path": "reports/h2o/all_features/feature_importance.csv",
+    "bytes": 828,
+    "sha256": "a82373d51d3c538d0eeee21cc56ae0e1a0a6599c1fd1040f19e59ad64bc75e6e"
+  },
+  {
+    "path": "reports/h2o/all_features/feature_importance.png",
+    "bytes": 47061,
+    "sha256": "af37bc44b2dad2f896adaec425c2d6247281b0c0336b6e69d60a9947a3d147dc"
+  },
+  {
+    "path": "reports/h2o/all_features/leaderboard.csv",
+    "bytes": 3144,
+    "sha256": "c5aa1c618645fc9e7c8c8b4df5878041c4b750d4d48175ae3e029adf26f9adae"
+  },
+  {
+    "path": "reports/h2o/all_features/leaderboard_rmse.png",
+    "bytes": 100721,
+    "sha256": "0b5e686ff4c10cd10489b2f27ca34362dc6253f678f70d223b58da4faeb366ca"
+  },
+  {
+    "path": "reports/h2o/all_features/run_summary.json",
+    "bytes": 1608,
+    "sha256": "e84a4bc2803dcc9d7154d8f61ff0b07be17e1b83e5752b7145081c8ee29168a3"
+  },
+  {
+    "path": "reports/h2o/all_features/top3_by_prediction_speed.csv",
+    "bytes": 581,
+    "sha256": "41364b7a1cecd937c17b82942714158eb521d2aef2ae643cbb13ea3ff1fe9f58"
+  },
+  {
+    "path": "reports/h2o/all_features/top3_by_score.csv",
+    "bytes": 539,
+    "sha256": "8c35d98c610f0cca833452199030b843777bb4d4011a1e68e8230a817a6a3d00"
+  },
+  {
+    "path": "reports/h2o/all_features/top3_by_training_speed.csv",
+    "bytes": 570,
+    "sha256": "2c2527a2efd2d8cc349215dfe4ed561a971077942f021e6ff4242984c83dc1fe"
+  },
+  {
+    "path": "reports/h2o/all_features/top5_features.csv",
+    "bytes": 349,
+    "sha256": "1582d34983f650e5412cffdfd4c850a13cd9d1a78f1de48594fabb0b7df02e7d"
+  },
+  {
+    "path": "reports/h2o/comparison/all_vs_top_features.csv",
+    "bytes": 587,
+    "sha256": "87796849fca49ac087752dff9289682b0860b404aff4e54823c8b18f10aa25db"
+  },
+  {
+    "path": "reports/h2o/comparison/all_vs_top_features.json",
+    "bytes": 1519,
+    "sha256": "071f094b811b5cd332cb562380004781210135ae7f488b667e30702052ceec58"
+  },
+  {
+    "path": "reports/h2o/top_features/actual_vs_predicted.png",
+    "bytes": 253041,
+    "sha256": "6801c2a703513f2e2604b606002e7789b5e3933a1a3c04abed8c91ae04723db4"
+  },
+  {
+    "path": "reports/h2o/top_features/feature_importance.csv",
+    "bytes": 230,
+    "sha256": "1fc87a17df5fef4e5f9738e5ffc2945e95bf3ef78ef566c1e7a941bf80a2a925"
+  },
+  {
+    "path": "reports/h2o/top_features/feature_importance.png",
+    "bytes": 34497,
+    "sha256": "5a6ee2f82fbe0c7fceff2746042155b8c94d05a79de43e7f93fad3f4472e9602"
+  },
+  {
+    "path": "reports/h2o/top_features/leaderboard.csv",
+    "bytes": 826,
+    "sha256": "50f850dd5343574bf7153a27bddef09aa1fa62b555b48099fd8c1f7b039d1ff8"
+  },
+  {
+    "path": "reports/h2o/top_features/leaderboard_rmse.png",
+    "bytes": 63080,
+    "sha256": "eaa047b837330f63c8c4f877cb47d33c55af92cbdc64e7898b5f3393c5f0866e"
+  },
+  {
+    "path": "reports/h2o/top_features/run_summary.json",
+    "bytes": 1259,
+    "sha256": "6106daab6c8c48d4d8010de34e3e91313873a668cf42335c39b674bd5ecfbb67"
+  },
+  {
+    "path": "reports/h2o/top_features/top3_by_prediction_speed.csv",
+    "bytes": 569,
+    "sha256": "079c217956ada5e64f0403023059cf3d9a3ee5e6c36353bab95fc0139d6b0703"
+  },
+  {
+    "path": "reports/h2o/top_features/top3_by_score.csv",
+    "bytes": 541,
+    "sha256": "88e058b50e9d63773a5544ff2bc86d872f00ef0de071e2150b4f64c24b52d8de"
+  },
+  {
+    "path": "reports/h2o/top_features/top3_by_training_speed.csv",
+    "bytes": 557,
+    "sha256": "80cd73d99b5b2c91435885e3136ba4480e2a3333a0a3dbdc3f55f04dadd9ec24"
+  },
+  {
+    "path": "requirements-automl.txt",
+    "bytes": 88,
+    "sha256": "414fc6a987f4a68a8c3627784117edb4e5069762b4d79e30167c31d0dff060b5"
+  },
+  {
+    "path": "requirements-h2o.txt",
+    "bytes": 51,
+    "sha256": "90c617942b6cdff41cf70c3a98f07197b0e330414c6e0e64191b895bd1fdf3e1"
+  },
+  {
+    "path": "requirements-report.txt",
+    "bytes": 39,
+    "sha256": "15054a249865593c86bbe4fc998fbe112941c4f84679dd30f0e11f60d7ea8a9c"
+  },
+  {
+    "path": "requirements.txt",
+    "bytes": 125,
+    "sha256": "7098c0d2211f2aa7039c9460283998c258442cfba85e03d2bccfa187c9ffb29d"
+  },
+  {
+    "path": "scripts/build_assignment_report.py",
+    "bytes": 16731,
+    "sha256": "eec3af2c646ee8c52bc81f7730ca6bef3e2ae0b600cf731dd3a71a580c2b5aa3"
+  },
+  {
+    "path": "scripts/build_final_comparison.py",
+    "bytes": 8718,
+    "sha256": "ddc07aabf02b0406898aac95c7270dd6647b65600263e95d8ed2c58b96b1a785"
+  },
+  {
+    "path": "scripts/build_high_level_report.py",
+    "bytes": 21758,
+    "sha256": "08bf82340b79fb847a5d4422c6c55c0a372115181d7245d1f56982e04c2f1b09"
+  },
+  {
+    "path": "scripts/check_h2o_environment.py",
+    "bytes": 1122,
+    "sha256": "ae66b613a22566b95067c22805093e5a7939701732e604de8de6c7fd471d57dd"
+  },
+  {
+    "path": "scripts/clean_target_and_resplit.py",
+    "bytes": 5758,
+    "sha256": "90659af303c15c4dc70045862abc6638754a4aa880dfb26c3680e3f76fe747ce"
+  },
+  {
+    "path": "scripts/create_submission_zip.py",
+    "bytes": 3061,
+    "sha256": "20945c8faedfea24f488c4f6acdb1759fed1b712b2db549686c725d710a04335"
+  },
+  {
+    "path": "scripts/export_databricks_dataset.py",
+    "bytes": 4083,
+    "sha256": "5356e1480330dc6b92a0f83403fa7f69a9d78dfca159473d6db7962cd7382c31"
+  },
+  {
+    "path": "scripts/finalize_submission.py",
+    "bytes": 843,
+    "sha256": "7f8c03b0745108c5c8e1aa6d144cb5d0b65740ad5d08b5c3d68d4cb2c8a4b635"
+  },
+  {
+    "path": "scripts/prepare_data.py",
+    "bytes": 11641,
+    "sha256": "7fdff5d09313bb6dd239cd0fde5ca4802fffb46779f898b2630aa0aff6e3e538"
+  },
+  {
+    "path": "scripts/profile_data.py",
+    "bytes": 4652,
+    "sha256": "72606e27d6434578be4f10679f35e56a28b79b22f07a636f6445211e157d9045"
+  },
+  {
+    "path": "scripts/reproduce_assignment3.sh",
+    "bytes": 1066,
+    "sha256": "824e754b23d9f90eef67d47fa43a0ebe3ef45c996c5f64be3066fda041d6f9c9"
+  },
+  {
+    "path": "scripts/run_autogluon_all_features.py",
+    "bytes": 17542,
+    "sha256": "762ada78d021b50093539f06da22538fbc7211da80cab521ff4b1f93b81d89a3"
+  },
+  {
+    "path": "scripts/run_autogluon_top_features.py",
+    "bytes": 21243,
+    "sha256": "4e7dd9fa68b37c3ae045db19da975ce21766a745640c99b81af899c0c27f1540"
+  },
+  {
+    "path": "scripts/run_baselines.py",
+    "bytes": 18084,
+    "sha256": "ee87de24c4d1051a10323aa23f049c5829105d4d31af5ad56f2e6be1f0d73e50"
+  },
+  {
+    "path": "scripts/run_h2o_all_features.py",
+    "bytes": 23130,
+    "sha256": "6aac64b0e55cf7f57c53225a0002425ba1b43656567dcbd2f8eb1d415c83614e"
+  },
+  {
+    "path": "scripts/run_h2o_top_features.py",
+    "bytes": 28365,
+    "sha256": "1128831fec7de313ec8829646a1675d22c236f2a1c0e41fe91870acd548b2453"
+  },
+  {
+    "path": "scripts/start_mlflow.py",
+    "bytes": 441,
+    "sha256": "15e3909d5520bebd997d3519c3906e7d15fde47bbc907ae6c3ecd99ac207d028"
+  },
+  {
+    "path": "scripts/validate_assignment_submission.py",
+    "bytes": 6836,
+    "sha256": "12cfb203b75231a8040662dc719ff2267f270a156219a1415ecc6c908a3a720c"
+  },
+  {
+    "path": "src/athlete_automl/__init__.py",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "src/athlete_automl/autogluon/__init__.py",
+    "bytes": 38,
+    "sha256": "e0b5598d35f298ef74853507f428ef2dfde6954bcd8a54e211c5409bf4c12634"
+  },
+  {
+    "path": "src/athlete_automl/autogluon/experiment.py",
+    "bytes": 10954,
+    "sha256": "1c4a5f840c692e490a41bf1e9eed0df06861ebeb1a8470de5e33d32f348560e0"
+  },
+  {
+    "path": "src/athlete_automl/autogluon/top_features.py",
+    "bytes": 2620,
+    "sha256": "c0d0c1f410bf2e2163c85aa5873d546bcd3a98c85131114f547ca89d9b8d494c"
+  },
+  {
+    "path": "src/athlete_automl/autogluon_workflow.py",
+    "bytes": 3704,
+    "sha256": "b61f1912f943c678194f19fe53653f04b3e94062ab148b3c2a3bbfb4828d172b"
+  },
+  {
+    "path": "src/athlete_automl/automl/__init__.py",
+    "bytes": 44,
+    "sha256": "a30e0c0b3e727881093d24fa6f5f02658e48587ee1a68438b1726bc47165c72d"
+  },
+  {
+    "path": "src/athlete_automl/automl/evaluation.py",
+    "bytes": 4291,
+    "sha256": "4d4bea3621bc328d6ee7dfb6ed2dd3cf35d97cf4fe1fece9afa797e943751c84"
+  },
+  {
+    "path": "src/athlete_automl/automl/feature_selection.py",
+    "bytes": 5292,
+    "sha256": "6bb7931a48e330a5405989957de239f8b50eb68400e33e184b07f8ce07082fb1"
+  },
+  {
+    "path": "src/athlete_automl/automl/plotting.py",
+    "bytes": 2656,
+    "sha256": "37f171fa9491e6dcbfb2b7bbc287ae54ea9fcf3803098b27f016dbe387ab61c7"
+  },
+  {
+    "path": "src/athlete_automl/comparison/__init__.py",
+    "bytes": 56,
+    "sha256": "337151dc34c83e32fa10f557c76bcf71b4606cf6d1c7f7322e06e8c89849c00d"
+  },
+  {
+    "path": "src/athlete_automl/comparison/final_comparison.py",
+    "bytes": 11918,
+    "sha256": "5fdbe5b61965f9f5bce1dfa85532477819851bd98a98b0036e7a2c743760eba5"
+  },
+  {
+    "path": "src/athlete_automl/comparison/plotting.py",
+    "bytes": 2522,
+    "sha256": "fff07a97583c526a7622a4bb692fce8c6823bfb6264530bc8c4610262d1ead78"
+  },
+  {
+    "path": "src/athlete_automl/databricks/__init__.py",
+    "bytes": 40,
+    "sha256": "30e7001614cc3b0a51c15fa7e426238c56dd9f8b3d9c0fd4b75fb0433aa17a62"
+  },
+  {
+    "path": "src/athlete_automl/databricks/export.py",
+    "bytes": 3628,
+    "sha256": "c0cc2fe577b1d53f9172554b1b3f4147a3b68d4532ded6abf6b3bade7008143a"
+  },
+  {
+    "path": "src/athlete_automl/h2o_workflow/__init__.py",
+    "bytes": 51,
+    "sha256": "e208bc2efb852824cc9403c60ecc832c5e7e58615f88328be98a53ac0a2800c5"
+  },
+  {
+    "path": "src/athlete_automl/h2o_workflow/evaluation.py",
+    "bytes": 8484,
+    "sha256": "7628893cb0fff41ac22c06b8fc20562da8e5f696aa87ee486d057e2848ee87d3"
+  },
+  {
+    "path": "src/athlete_automl/h2o_workflow/feature_selection.py",
+    "bytes": 5416,
+    "sha256": "eb0bea66e1d3723954ecb0cc231155c91f129f1892c4612cd1663cd6d9222152"
+  },
+  {
+    "path": "src/athlete_automl/h2o_workflow/plotting.py",
+    "bytes": 2989,
+    "sha256": "3b0399c95322f88dab10b34514d2c820ef8f5221202785f4fdee141f473f6053"
+  },
+  {
+    "path": "src/athlete_automl/reporting/__init__.py",
+    "bytes": 53,
+    "sha256": "4cf01ed4cd12e6675a88a3f7bedd24bfe20d026ad67ed54169fecc29a06d8dd1"
+  },
+  {
+    "path": "src/athlete_automl/reporting/assignment_report.py",
+    "bytes": 4462,
+    "sha256": "2a43d8e30d89c97b4d4a5f5e0971062dc82972daea8bd08f99e5419d75986ba7"
+  },
+  {
+    "path": "src/athlete_automl.egg-info/PKG-INFO",
+    "bytes": 462,
+    "sha256": "854c0176740df7bd1d662e3217c8f4561f08b70d378456a4bd7f43c4063a6d54"
+  },
+  {
+    "path": "src/athlete_automl.egg-info/SOURCES.txt",
+    "bytes": 1631,
+    "sha256": "b69a6d51b74d215f23c22e99b8b7e2202459c2e069869544d4c48bc7088c698b"
+  },
+  {
+    "path": "src/athlete_automl.egg-info/dependency_links.txt",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "src/athlete_automl.egg-info/requires.txt",
+    "bytes": 132,
+    "sha256": "570fc49be1c0628971a28590427e04e0a81d0bf6caf240bf78727660ff54e02d"
+  },
+  {
+    "path": "src/athlete_automl.egg-info/top_level.txt",
+    "bytes": 15,
+    "sha256": "b4bf61cbf9fa26a2e3776deb423e6b47df0cc4c4a71c9d8dbc92799e33c7451b"
+  },
+  {
+    "path": "submission/Assignment3_AutoML_High_Level_Report.md",
+    "bytes": 4940,
+    "sha256": "c20c6c5c5b8f8dd94fbd62b886cdd889c74a9b63a06e6a73560c4ac91507238d"
+  },
+  {
+    "path": "submission/Assignment3_AutoML_High_Level_Report.pdf",
+    "bytes": 155624,
+    "sha256": "fb49f648bfff73e5695d741d79c9cb3a150c0d52d0fecf10c5208d311541afb8"
+  },
+  {
+    "path": "submission/assignment3_report.md",
+    "bytes": 14138,
+    "sha256": "db38e3bf4eb0fefae5d0653efada47ab61bdfd95cbd5fd152ff226f2028eaf28"
+  },
+  {
+    "path": "submission/evidence_manifest.csv",
+    "bytes": 1995,
+    "sha256": "466612e13e55ebccca52678c2a5e23a16b063949d25b86537742c54c4177e653"
+  },
+  {
+    "path": "submission/submission_file_manifest.json",
+    "bytes": 26497,
+    "sha256": "e62d71bc129c4605705092ec5fe780433168622477e153a9bb0444f29d0851d0"
+  },
+  {
+    "path": "submission/validation_report.json",
+    "bytes": 6290,
+    "sha256": "5c01092992f3ce3905f17e537cea31b8f9be90b8ed5103d03168521cfab7096d"
+  },
+  {
+    "path": "tests/__init__.py",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "tests/test_assignment_reporting.py",
+    "bytes": 1351,
+    "sha256": "55d38a44c48c59784968b46f98c56d9f081980386b0ad053cb5fdb353a2017b4"
+  },
+  {
+    "path": "tests/test_autogluon_top_features.py",
+    "bytes": 2875,
+    "sha256": "05005572e55ea7791f07c4023fe210faec3a37129d5e3a3e656cc0062b49fd4e"
+  },
+  {
+    "path": "tests/test_autogluon_workflow.py",
+    "bytes": 1656,
+    "sha256": "791b4f08ab5ade12c693d32df0393ba60a6281dd6dde8f665e12f427229ff5e2"
+  },
+  {
+    "path": "tests/test_automl_evaluation.py",
+    "bytes": 2725,
+    "sha256": "b3ae6c1b2178c0f04c04a63f578fd2235871829f55beb1901c628c07f6bd0c5f"
+  },
+  {
+    "path": "tests/test_data_preparation.py",
+    "bytes": 4025,
+    "sha256": "c9e652d8ff4741f1e69408598da8a1a0a9bf82d1fe98dcd2c0d3600127c9d892"
+  },
+  {
+    "path": "tests/test_data_profiling.py",
+    "bytes": 4848,
+    "sha256": "52a9058b040f9e3d54367a71f24c5713402c63dee27bba552d3ce849ef59798f"
+  },
+  {
+    "path": "tests/test_databricks_export.py",
+    "bytes": 3025,
+    "sha256": "13fee82ef15b9a6bd03ed0fd74222097fee18641e4e6d2eeb0ccf5e467a1be71"
+  },
+  {
+    "path": "tests/test_feature_selection.py",
+    "bytes": 2261,
+    "sha256": "207e7d641098082c1096eb771b2e56de061a5a46fcc171863c17649c3536ab34"
+  },
+  {
+    "path": "tests/test_final_comparison.py",
+    "bytes": 3695,
+    "sha256": "a628cc072f7ef61bd94d46934fb8059441669defd8dbe09a4c37706ffafb7201"
+  },
+  {
+    "path": "tests/test_h2o_evaluation.py",
+    "bytes": 3691,
+    "sha256": "42f2597bf751a01b6da5bc981753c7b3d166d7258771d9e2c15ddedd35f1587a"
+  },
+  {
+    "path": "tests/test_h2o_feature_selection.py",
+    "bytes": 2279,
+    "sha256": "1ced565da1c8da7e628b81c9627a59ebcc645b1aa8dac10045fc0ed4e862f390"
+  },
+  {
+    "path": "tests/test_target_quality.py",
+    "bytes": 1785,
+    "sha256": "d7e5ad6f0fe58fe689db17d064fcef02e0dbc8ad0e9deb20a6d6076651b0eeb3"
+  }
+]

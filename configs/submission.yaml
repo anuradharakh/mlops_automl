@@ -1,0 +1,91 @@
+assignment:
+  course: ADSP 31021 Machine Learning Operations
+  title: Assignment 3 - AutoML
+  author: Anuradha Rakh
+  primary_platform: AutoGluon with MLflow
+  primary_platform_mode: full-code
+  target: total_lift
+  dataset_source: athletes.csv
+  repository_url: https://github.com/anuradharakh/mlops_automl
+  validation_metric: RMSE
+  random_seed: 42
+  processed_dataset_description: Cleaned and engineered athlete dataset produced by
+    the reproducible Phase 1 pipeline. Target-component sentinel values and corrupted
+    target totals are audited before deterministic train, validation, and test splitting.
+paths:
+  feature_list: reports/data/feature_list.json
+  target_quality: reports/data/target_quality_summary.json
+  split_summary: reports/data/split_summary.csv
+  autogluon_all_summary: reports/autogluon/all_features/run_summary.json
+  autogluon_all_score: reports/autogluon/all_features/top3_by_score.csv
+  autogluon_all_speed: reports/autogluon/all_features/top3_by_speed.csv
+  autogluon_all_features: reports/autogluon/all_features/top5_features.csv
+  autogluon_top_summary: reports/autogluon/top_features/run_summary.json
+  autogluon_top_score: reports/autogluon/top_features/top3_by_score.csv
+  autogluon_top_speed: reports/autogluon/top_features/top3_by_speed.csv
+  autogluon_comparison: reports/autogluon/comparison/all_vs_top_features.json
+  h2o_data_insights: reports/h2o/all_features/data_insights.json
+  h2o_all_summary: reports/h2o/all_features/run_summary.json
+  h2o_all_score: reports/h2o/all_features/top3_by_score.csv
+  h2o_all_speed: reports/h2o/all_features/top3_by_training_speed.csv
+  h2o_all_features: reports/h2o/all_features/top5_features.csv
+  h2o_top_summary: reports/h2o/top_features/run_summary.json
+  h2o_top_score: reports/h2o/top_features/top3_by_score.csv
+  h2o_top_speed: reports/h2o/top_features/top3_by_training_speed.csv
+  h2o_comparison: reports/h2o/comparison/all_vs_top_features.json
+  reconstructed_baseline: reports/baseline/run_summary.json
+  final_comparison: reports/final_comparison/platform_comparison.csv
+  recommendation: reports/final_comparison/recommendation.json
+  feature_overlap: reports/final_comparison/feature_overlap.json
+  assignment1_baseline: configs/assignment1_baseline.yaml
+  test_rmse_plot: reports/final_comparison/test_rmse_comparison.png
+  training_time_plot: reports/final_comparison/training_time_comparison.png
+outputs:
+  report: submission/assignment3_report.md
+  high_level_report_markdown: submission/Assignment3_AutoML_High_Level_Report.md
+  high_level_report_pdf: submission/Assignment3_AutoML_High_Level_Report.pdf
+  evidence_manifest: submission/evidence_manifest.csv
+  validation_report: submission/validation_report.json
+  submission_zip: dist/mlops_automl_assignment3_submission.zip
+discussion:
+  primary_platform_reason: 'AutoGluon automates preprocessing, candidate-model training,
+    algorithm selection, hyperparameter exploration, leaderboard generation, and ensembling
+    while remaining executable locally. MLflow adds experiment tracking and artifact
+    management without paid cloud compute.
+
+    '
+  speed_definition_primary: 'AutoGluon model speed uses platform fit-time columns.
+    Wall-clock experiment time is retained for run-level comparison.
+
+    '
+  speed_definition_h2o: 'H2O model speed uses platform-provided training_time_ms.
+    Prediction speed is retained when available.
+
+    '
+  automated_steps:
+  - Missing-value handling supported by the AutoML engines
+  - Candidate algorithm training
+  - Hyperparameter exploration
+  - Model evaluation and leaderboard ranking
+  - Ensemble construction where supported
+  - Feature-importance generation
+  - Experiment metric and artifact logging
+  manual_decisions:
+  - Target definition and quality thresholds
+  - Feature eligibility and leakage exclusions
+  - Sparse-feature removal threshold
+  - Fixed split strategy
+  - Runtime and model-count budgets
+  - Validation metric selection
+  - Interpretation of importance and speed tradeoffs
+  operational_strengths:
+  - Reproducible configurations and fixed partitions
+  - Broad model search with consistent evaluation
+  - Saved metrics, leaderboards, plots, and model artifacts
+  - Local execution improves portability and avoids cloud billing
+  operational_risks:
+  - AutoML can consume substantial compute and storage
+  - Runtime-limited searches may vary across machines
+  - Ensembles can be harder to explain and deploy
+  - Feature importance is model-dependent and not causal
+  - Schema, data-quality, and drift monitoring remain manual responsibilities

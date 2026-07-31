@@ -1,229 +1,100 @@
-# MLOps AutoML
+# ADSP 31021 Assignment 3 - AutoML
 
-An end-to-end AutoML comparison project using the athletes dataset.
+## Athlete Total-Lift Prediction with AutoGluon, MLflow, and H2O AutoML
 
-This repository compares:
-
-- Databricks AutoML
-- H2O AutoML
-- A manually developed baseline model from the earlier assignment
-
-The project focuses on model performance, feature importance, validation rankings,
-execution speed, reproducibility, and the practical strengths and limitations of
-AutoML platforms.
-
----
-
-## Assignment Objective
-
-Predict an athlete's combined lift total:
+This repository implements a reproducible AutoML workflow for predicting an athlete's
+combined lift total using the `athletes.csv` dataset.
 
 ```text
 total_lift = deadlift + candj + snatch + backsq
 ```
 
-The workflow will evaluate:
+The project compares:
 
-- AutoML using all appropriate features
-- AutoML using only the top three features
-- Top models by validation score
-- Top models by execution speed
-- Top five feature-importance results
-- Databricks AutoML versus H2O AutoML
-- AutoML results versus the previous manual baseline
+- AutoGluon with MLflow as the primary full-code AutoML workflow
+- H2O AutoML as the required repeat workflow
+- All approved features versus each platform's top three features
+- AutoML models versus a same-split Random Forest baseline
+- Current AutoML results versus the original Assignment 1 baseline where comparable
+- Validation performance, test performance, feature importance, and execution speed
 
----
-
-## Platforms
-
-### Primary platform
-
-**Databricks AutoML**
-
-Databricks is treated as a low-code AutoML platform because it automates model
-selection, training, tuning, and leaderboard generation, while data preparation,
-target definition, leakage prevention, evaluation design, and final model approval
-still require manual decisions.
-
-### Required comparison platform
-
-**H2O AutoML**
-
-H2O AutoML will run locally through Python and will repeat the all-feature and
-top-feature experiments.
-
----
-
-## Planned Experiment Matrix
-
-| Experiment | Platform | Feature set |
-|---|---|---|
-| `databricks_all_features` | Databricks AutoML | All appropriate features |
-| `databricks_top_features` | Databricks AutoML | Top three features |
-| `h2o_all_features` | H2O AutoML | All appropriate features |
-| `h2o_top_features` | H2O AutoML | Top three features |
-
-The same target definition and comparable train, validation, and test logic will be
-used across platforms.
-
----
-
-## Data
-
-Place the original dataset at:
+## Workflow
 
 ```text
-data/raw/athletes.csv
+athletes.csv
+  -> profiling and schema validation
+  -> sentinel handling and target construction
+  -> target-quality audit
+  -> leakage-safe feature engineering
+  -> deterministic 64/16/20 train-validation-test split
+  -> AutoGluon all-features run
+  -> AutoGluon top-three-features run
+  -> H2O all-features run
+  -> H2O top-three-features run
+  -> conventional baselines
+  -> cross-platform comparison
+  -> detailed report, high-level PDF, validation, and submission ZIP
 ```
 
-The raw file is treated as immutable and is intentionally excluded from Git.
+## Dataset and Modeling Contract
 
-Generated datasets will be saved under:
+| Item | Value |
+|---|---:|
+| Raw rows | 423,006 |
+| Final modeling rows | 53,505 |
+| Corrupted target rows removed | 29 |
+| Final target range | 8 to 2,330 |
+| Approved model features | 13 |
+| Train rows | 34,243 |
+| Validation rows | 8,561 |
+| Test rows | 10,701 |
+| Random seed | 42 |
+| Primary selection metric | Validation RMSE |
+| Additional metrics | Test RMSE, MAE, and R-squared |
+
+The target components are excluded because they directly define `total_lift`:
 
 ```text
-data/processed/
-data/splits/
-```
-
----
-
-## Leakage Prevention
-
-The following columns must not be used as model features:
-
-```text
-total_lift
 deadlift
 candj
 snatch
 backsq
 ```
 
-Additional identifiers and metadata such as `athlete_id` and `event_timestamp` will
-also be excluded from the model feature matrix.
+The target, athlete identifier, and other non-model metadata are also excluded from the
+predictor matrix. Features with more than 70% missing observations were removed before
+AutoML.
 
----
+## Platforms
 
-## Evaluation Strategy
+### AutoGluon with MLflow
 
-The planned split is:
+AutoGluon is the primary full-code AutoML engine. It automates preprocessing, candidate
+model training, algorithm selection, hyperparameter exploration, leaderboard generation,
+and ensembling where supported.
 
-| Partition | Fraction |
-|---|---:|
-| Train | 64% |
-| Validation | 16% |
-| Test | 20% |
+MLflow records parameters, validation and test metrics, package versions, leaderboards,
+feature-importance outputs, and comparison artifacts.
 
-Configuration:
+### H2O AutoML
 
-```text
-Random seed: 42
-Primary metric: RMSE
-Additional metrics: MAE and R²
-```
+H2O repeats the workflow using the same fixed train, validation, and test partitions. It
+provides leaderboard metrics, model-level training and prediction speed, model persistence,
+and variable importance where supported.
 
-The final test set will remain untouched during AutoML model selection.
+## Experiment Matrix
 
-Validation metrics will be used to select models. Test metrics will be used only for
-final generalization assessment.
-
----
-
-## Concise Rollout Plan
-
-### Phase 1 — Repository and Data Preparation
-
-- Initialize the GitHub repository
-- Create the Python environment
-- Add the project structure and configuration
-- Profile `athletes.csv`
-- Create a leakage-safe feature contract
-- Build reproducible train, validation, and test datasets
-
-### Phase 2 — Databricks AutoML
-
-Run Databricks AutoML with:
-
-- All appropriate features
-- Top three features
-
-Save configuration, leaderboard, metrics, feature importance, speed rankings, and
-screenshots.
-
-### Phase 3 — H2O AutoML
-
-Run H2O AutoML with:
-
-- All appropriate features
-- Top three features
-
-Save leaderboards, metrics, feature importance, predictions, and execution times.
-
-### Phase 4 — Evaluation and Comparison
-
-Compare:
-
-- Databricks versus H2O
-- All features versus top three features
-- AutoML versus the previous manual baseline
-- Validation performance versus speed
-- Automation benefits versus operational complexity
-
-### Phase 5 — Reporting and Reproducibility
-
-Complete:
-
-- README
-- Assignment report
-- HTML report
-- Screenshots
-- Tests
-- Dependency files
-- Reproduction instructions
-- Final recommendation
-- GitHub validation
-
----
-
-## Repository Structure
-
-```text
-mlops-automl/
-├── configs/
-│   └── automl.yaml
-├── data/
-│   ├── raw/
-│   │   └── athletes.csv
-│   ├── processed/
-│   └── splits/
-├── docs/
-│   └── assets/
-├── notebooks/
-│   └── databricks/
-├── reports/
-│   ├── data/
-│   ├── databricks/
-│   │   ├── all_features/
-│   │   └── top_features/
-│   ├── h2o/
-│   │   ├── all_features/
-│   │   └── top_features/
-│   └── comparison/
-├── scripts/
-├── src/
-│   └── athlete_automl/
-├── tests/
-├── .gitignore
-├── pyproject.toml
-├── requirements.txt
-└── README.md
-```
-
----
+| Experiment | Platform | Feature set |
+|---|---|---|
+| `autogluon_all_features` | AutoGluon + MLflow | All 13 approved features |
+| `autogluon_top_features` | AutoGluon + MLflow | AutoGluon's top 3 features |
+| `h2o_all_features` | H2O AutoML | All 13 approved features |
+| `h2o_top_features` | H2O AutoML | H2O's top 3 features |
+| `sklearn_baselines` | Scikit-learn | Mean and Random Forest baselines |
 
 ## Environment Setup
 
-Python 3.11 is recommended.
+Use Python 3.11.
 
 ```bash
 python3.11 -m venv .venv
@@ -231,113 +102,112 @@ source .venv/bin/activate
 
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+python -m pip install -r requirements-automl.txt
+python -m pip install -r requirements-h2o.txt
+python -m pip install -r requirements-report.txt
 python -m pip install -e .
 ```
 
----
-
-## Phase 1 Validation
-
-Run formatting:
+H2O also requires Java:
 
 ```bash
-ruff format src tests
+java -version
+python scripts/check_h2o_environment.py
 ```
 
-Run linting:
+Place the source dataset at:
+
+```text
+data/raw/athletes.csv
+```
+
+## Reproduce the Complete Workflow
 
 ```bash
-ruff check src tests
+source .venv/bin/activate
+
+python scripts/profile_data.py
+python scripts/prepare_data.py
+python scripts/clean_target_and_resplit.py
+
+python scripts/run_autogluon_all_features.py --overwrite
+python scripts/run_autogluon_top_features.py --overwrite
+
+python scripts/check_h2o_environment.py
+python scripts/run_h2o_all_features.py --overwrite
+python scripts/run_h2o_top_features.py --overwrite
+
+python scripts/run_baselines.py
+python scripts/build_final_comparison.py
+
+python scripts/build_assignment_report.py
+python scripts/build_high_level_report.py
+python scripts/validate_assignment_submission.py
+python scripts/create_submission_zip.py
 ```
 
-Run tests:
+Run the final reporting and packaging steps together:
 
 ```bash
-pytest -v
+python scripts/finalize_submission.py
 ```
 
-Verify the raw dataset:
+## Main Outputs
 
-```bash
-python - <<'PY'
-from pathlib import Path
+```text
+reports/autogluon/
+reports/h2o/
+reports/baseline/
+reports/final_comparison/
 
-path = Path("data/raw/athletes.csv")
+submission/assignment3_report.md
+submission/Assignment3_AutoML_High_Level_Report.md
+submission/Assignment3_AutoML_High_Level_Report.pdf
+submission/evidence_manifest.csv
+submission/validation_report.json
 
-assert path.exists(), "data/raw/athletes.csv is missing"
-assert path.stat().st_size > 0, "athletes.csv is empty"
-
-print("PASS:", path)
-print("Size:", f"{path.stat().st_size / 1024 / 1024:.2f} MB")
-PY
+dist/mlops_automl_assignment3_submission.zip
 ```
 
----
+## Assignment 1 Baseline
 
-## Accounts and Local Requirements
+The original Assignment 1 processed Dataset v2 Random Forest reported:
 
-| Tool | Account required? |
+| Metric | Result |
 |---|---:|
-| GitHub | Existing account |
-| Databricks AutoML | Yes |
-| H2O AutoML | No |
-| MLflow | No |
-| AWS, Azure, or GCP | Not required for the initial local workflow |
+| Test RMSE | 152.55167 |
+| Test MAE | 114.88727 |
+| Test R-squared | 0.70624 |
+| Processed rows | 30,190 |
 
-H2O AutoML will also require a supported Java installation.
+Assignment 1 used an 80/20 train-test split and did not preserve a directly comparable
+validation score or reliable runtime artifact. The report therefore treats it as historical
+context and uses the Phase 4 same-split Random Forest for the controlled comparison.
 
----
+## Tests and Validation
 
-## Expected Outputs
-
-### Data preparation
-
-```text
-data/processed/athletes_automl.parquet
-data/splits/train.parquet
-data/splits/validation.parquet
-data/splits/test.parquet
-reports/data/data_profile.json
-reports/data/feature_contract.csv
+```bash
+ruff format --check src scripts tests
+ruff check src scripts tests
+python -m pytest -v
+python scripts/validate_assignment_submission.py
 ```
 
-### Databricks AutoML
+## Final Submission
 
-```text
-reports/databricks/all_features/
-reports/databricks/top_features/
-docs/assets/databricks/
-```
+Submit separately:
 
-### H2O AutoML
+1. `submission/Assignment3_AutoML_High_Level_Report.pdf`
+2. `dist/mlops_automl_assignment3_submission.zip`
+3. GitHub repository URL
 
-```text
-reports/h2o/all_features/
-reports/h2o/top_features/
-```
+The detailed technical report remains inside the ZIP.
 
-### Final comparison
+## Limitations
 
-```text
-reports/comparison/model_comparison.csv
-reports/comparison/speed_comparison.csv
-reports/comparison/feature_importance_comparison.csv
-reports/comparison/final_recommendation.json
-```
-
----
-
-## Current Status
-
-- [x] Repository name selected: `mlops-automl`
-- [x] Repository structure defined
-- [x] Python 3.11 environment planned
-- [x] AutoML configuration defined
-- [x] Raw-data location defined
-- [ ] Dataset profiling completed
-- [ ] AutoML-ready dataset created
-- [ ] Databricks AutoML completed
-- [ ] H2O AutoML completed
-- [ ] Final comparison completed
-- [ ] Final report completed
-- [ ] Clean-environment validation completed
+- Runtime-limited AutoML searches can vary across machines.
+- Feature importance is model-dependent and does not establish causality.
+- The 70% missingness threshold is a documented project choice.
+- The target-quality range is based on project data history and requires monitoring.
+- Ensembles can improve predictive performance while increasing deployment complexity.
+- Assignment 1 used a different processed dataset and split strategy.
