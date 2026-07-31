@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "mlflow_run_id": "b836283bda89444f9cae01edb2348210",
+  "platform": "scikit-learn",
+  "data_split": "Same fixed train, validation, and test partitions as AutoML.",
+  "models": [
+    {
+      "model_name": "DummyRegressorMean",
+      "feature_set": "dummy_mean",
+      "feature_count": 0,
+      "validation_rmse": 277.28202680349466,
+      "validation_mae": 230.05426522057465,
+      "validation_r2": -0.0010095586238512144,
+      "test_rmse": 275.7874027026914,
+      "test_mae": 227.82701135630177,
+      "test_r2": -1.0110755832570817e-07,
+      "training_wall_clock_seconds": 0.0009625829989090562,
+      "prediction_seconds": 3.51249982486479e-05
+    },
+    {
+      "model_name": "RandomForestRegressor",
+      "feature_set": "all_features",
+      "feature_count": 13,
+      "validation_rmse": 128.3061204953369,
+      "validation_mae": 94.09460170181292,
+      "validation_r2": 0.7856667584435313,
+      "test_rmse": 127.664662556656,
+      "test_mae": 94.3746107106559,
+      "test_r2": 0.7857145923180457,
+      "training_wall_clock_seconds": 0.9110241669986863,
+      "prediction_seconds": 0.06570512500184122
+    }
+  ],
+  "top_five_features": [
+    "gender",
+    "fran",
+    "grace",
+    "weight_height_ratio",
+    "weight"
+  ],
+  "model_features": [
+    "age",
+    "height",
+    "weight",
+    "fran",
+    "helen",
+    "grace",
+    "run5k",
+    "pullups",
+    "gender",
+    "region",
+    "bmi",
+    "age_squared",
+    "weight_height_ratio"
+  ],
+  "package_versions": {
+    "python": "3.11.4",
+    "scikit-learn": "1.7.2",
+    "mlflow": "3.14.0",
+    "pandas": "2.3.3",
+    "numpy": "1.26.4"
+  }
+}

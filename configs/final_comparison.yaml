@@ -1,0 +1,13 @@
+inputs:
+  baseline_summary: reports/baseline/run_summary.json
+  autogluon_all: reports/autogluon/all_features/run_summary.json
+  autogluon_top: reports/autogluon/top_features/run_summary.json
+  h2o_all: reports/h2o/all_features/run_summary.json
+  h2o_top: reports/h2o/top_features/run_summary.json
+
+selection:
+  primary_metric: validation_rmse
+  reduced_feature_tolerance_percent: 2.0
+
+reports:
+  output_dir: reports/final_comparison

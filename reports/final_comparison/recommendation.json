@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "selection_basis": "Primary recommendation is selected by the lowest validation RMSE. Test metrics are reported as final unbiased evaluation, not used as the first selection key.",
+  "best_predictive_run": {
+    "platform": "AutoGluon",
+    "feature_set": "all_features",
+    "feature_count": 13,
+    "best_model": "WeightedEnsemble_L2",
+    "validation_rmse": 125.78332637783177,
+    "test_rmse": 124.67884352188754,
+    "test_mae": 91.37594362085484,
+    "test_r2": 0.7956207858795439
+  },
+  "fastest_automl_run": {
+    "platform": "H2O AutoML",
+    "feature_set": "top_features",
+    "training_seconds": 3.419963958003791,
+    "validation_rmse": 143.57868602858534
+  },
+  "reduced_feature_tolerance_percent": 2.0,
+  "recommended_reduced_feature_run": null
+}

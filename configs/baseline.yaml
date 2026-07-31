@@ -1,0 +1,47 @@
+project:
+  name: mlops-automl
+
+data:
+  train_path: data/splits/train.parquet
+  validation_path: data/splits/validation.parquet
+  test_path: data/splits/test.parquet
+  feature_list_path: reports/data/feature_list.json
+
+schema:
+  target_column: total_lift
+  identifier_candidates:
+    - athlete_id
+    - record_id
+  prohibited_features:
+    - total_lift
+    - deadlift
+    - candj
+    - snatch
+    - backsq
+    - athlete_id
+    - record_id
+
+random_forest:
+  n_estimators: 300
+  max_depth: 20
+  min_samples_leaf: 2
+  max_features: sqrt
+  random_state: 42
+  n_jobs: -1
+
+permutation_importance:
+  sample_size: 3000
+  n_repeats: 3
+  random_state: 42
+  n_jobs: -1
+
+mlflow:
+  tracking_database: mlflow_autogluon.db
+  experiment_name: athletes_automl_baselines
+  run_name: sklearn_baselines
+
+artifacts:
+  model_path: artifacts/baseline/random_forest_pipeline.joblib
+
+reports:
+  output_dir: reports/baseline

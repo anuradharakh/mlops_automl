@@ -1,0 +1,75 @@
+{
+  "autogluon_vs_h2o_top_five": {
+    "first_features": [
+      "gender",
+      "fran",
+      "weight_height_ratio",
+      "grace",
+      "pullups"
+    ],
+    "second_features": [
+      "gender",
+      "weight_height_ratio",
+      "fran",
+      "weight",
+      "grace"
+    ],
+    "shared_features": [
+      "fran",
+      "gender",
+      "grace",
+      "weight_height_ratio"
+    ],
+    "shared_feature_count": 4,
+    "jaccard_similarity": 0.6666666666666666
+  },
+  "autogluon_vs_random_forest_top_five": {
+    "first_features": [
+      "gender",
+      "fran",
+      "weight_height_ratio",
+      "grace",
+      "pullups"
+    ],
+    "second_features": [
+      "gender",
+      "fran",
+      "grace",
+      "weight_height_ratio",
+      "weight"
+    ],
+    "shared_features": [
+      "fran",
+      "gender",
+      "grace",
+      "weight_height_ratio"
+    ],
+    "shared_feature_count": 4,
+    "jaccard_similarity": 0.6666666666666666
+  },
+  "h2o_vs_random_forest_top_five": {
+    "first_features": [
+      "gender",
+      "weight_height_ratio",
+      "fran",
+      "weight",
+      "grace"
+    ],
+    "second_features": [
+      "gender",
+      "fran",
+      "grace",
+      "weight_height_ratio",
+      "weight"
+    ],
+    "shared_features": [
+      "fran",
+      "gender",
+      "grace",
+      "weight",
+      "weight_height_ratio"
+    ],
+    "shared_feature_count": 5,
+    "jaccard_similarity": 1.0
+  }
+}
