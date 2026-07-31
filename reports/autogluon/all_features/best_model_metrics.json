@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "mlflow_run_id": "7ddc3fcd418d4c028255a5abe19aeb47",
+  "best_model": "ExtraTreesMSE",
+  "metrics": {
+    "best_validation_rmse": 100764.93675207466,
+    "test_rmse": 88633.53176933942,
+    "test_mae": 2853.145287545531,
+    "test_r2": -94178.07456067229,
+    "training_wall_clock_seconds": 11.213219207998918,
+    "test_prediction_seconds": 0.2438131670023722
+  }
+}

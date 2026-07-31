@@ -1,0 +1,13 @@
+{
+  "package": "mlops_automl_phase2_autogluon",
+  "files": [
+    "configs/autogluon.yaml",
+    "docs/phase_2_autogluon_all_features.md",
+    "docs/platform_decision.md",
+    "requirements-automl.txt",
+    "scripts/run_autogluon_all_features.py",
+    "scripts/start_mlflow.py",
+    "src/athlete_automl/autogluon_workflow.py",
+    "tests/test_autogluon_workflow.py"
+  ]
+}

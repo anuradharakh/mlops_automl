@@ -1,0 +1,5 @@
+-r requirements.txt
+
+autogluon.tabular>=1.2,<2
+mlflow>=2.20,<4
+psutil>=5.9,<8

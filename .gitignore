@@ -38,3 +38,11 @@ reports/h2o/**/models/
 # Build artifacts
 build/
 dist/
+
+# Generated AutoML models
+models/
+
+# Local MLflow files
+mlruns/
+mlflow.db
+artifacts/

@@ -1,0 +1,33 @@
+project:
+  platform: AutoGluon
+  mode: full-code
+
+data:
+  train_path: data/splits/train.parquet
+  validation_path: data/splits/validation.parquet
+  test_path: data/splits/test.parquet
+
+schema:
+  target_column: total_lift
+  identifier_candidates:
+    - athlete_id
+    - record_id
+
+experiment:
+  name: athletes-autogluon
+  run_name: autogluon-all-features
+  presets: medium_quality
+  time_limit_seconds: 900
+  random_state: 42
+
+feature_importance:
+  subsample_size: 5000
+  num_shuffle_sets: 3
+  time_limit_seconds: 300
+
+tracking:
+  uri: sqlite:///mlflow.db
+
+outputs:
+  predictor_path: models/autogluon/all_features
+  report_dir: reports/autogluon/all_features
