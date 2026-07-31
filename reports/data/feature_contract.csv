@@ -11,9 +11,9 @@ weight,numeric_feature,raw,include,Validated numeric model feature.
 fran,numeric_feature,raw,include,Validated numeric model feature.
 helen,numeric_feature,raw,include,Validated numeric model feature.
 grace,numeric_feature,raw,include,Validated numeric model feature.
-filthy50,numeric_feature,raw,include,Validated numeric model feature.
-fgonebad,numeric_feature,raw,include,Validated numeric model feature.
-run400,numeric_feature,raw,include,Validated numeric model feature.
+filthy50,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+fgonebad,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
+run400,unused_raw_column,raw,exclude,Not selected for the reproducible tabular AutoML feature set.
 run5k,numeric_feature,raw,include,Validated numeric model feature.
 candj,target_component,raw,exclude,Excluded to prevent direct target leakage.
 snatch,target_component,raw,exclude,Excluded to prevent direct target leakage.

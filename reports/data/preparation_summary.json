@@ -24,7 +24,7 @@
     "rows_with_complete_target": 81828,
     "rows_with_incomplete_target": 341178
   },
-  "feature_count": 16,
+  "feature_count": 13,
   "numeric_features": [
     "age",
     "height",
@@ -32,9 +32,6 @@
     "fran",
     "helen",
     "grace",
-    "filthy50",
-    "fgonebad",
-    "run400",
     "run5k",
     "pullups",
     "bmi",

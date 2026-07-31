@@ -1,16 +1,16 @@
 {
   "status": "PASS",
-  "row_count": 53534,
-  "column_count": 19,
+  "row_count": 53505,
+  "column_count": 16,
   "identifier_column": "athlete_id",
   "target_column": "total_lift",
   "split_column": "data_split",
   "split_counts": {
-    "test": 10707,
-    "train": 34261,
-    "validate": 8566
+    "test": 10701,
+    "train": 34243,
+    "validate": 8561
   },
-  "model_feature_count": 16,
+  "model_feature_count": 13,
   "model_features": [
     "age",
     "height",
@@ -18,9 +18,6 @@
     "fran",
     "helen",
     "grace",
-    "filthy50",
-    "fgonebad",
-    "run400",
     "run5k",
     "pullups",
     "gender",
@@ -30,9 +27,9 @@
     "weight_height_ratio"
   ],
   "csv_path": "data/processed/databricks_automl_dataset.csv",
-  "csv_sha256": "c23d0fbd29165ed30e8885113ca828247b4ac3d776caa114a625ebe20a79569d",
-  "csv_size_bytes": 6388145,
+  "csv_sha256": "ede7482eb6a58a4452f5befc926dffc3b24fd2fb7b7631fa7ed2ae479e08c56e",
+  "csv_size_bytes": 6032061,
   "parquet_path": "data/processed/databricks_automl_dataset.parquet",
-  "parquet_sha256": "0bc0289e084898594753aea53d12e5890bc6be716f298247a936f10940ad5456",
-  "parquet_size_bytes": 1240798
+  "parquet_sha256": "239337823aa2ceb27d049bb53ff74b280701c4a8a6c89f34e98f5a2ed23f2e7f",
+  "parquet_size_bytes": 1158312
 }

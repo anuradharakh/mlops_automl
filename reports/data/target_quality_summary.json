@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "target_column": "total_lift",
+  "valid_range": {
+    "minimum": 8.0,
+    "maximum": 2500.0
+  },
+  "rows_before": 53534,
+  "rows_removed": 29,
+  "rows_after": 53505,
+  "removal_reason_counts": {
+    "above_maximum": 29
+  },
+  "target_statistics_after_cleaning": {
+    "minimum": 8.0,
+    "maximum": 2330.0,
+    "mean": 1003.8805719091673,
+    "median": 1020.0,
+    "standard_deviation": 278.11876218928563,
+    "p99": 1590.0
+  },
+  "split_counts": {
+    "train": 34243,
+    "validation": 8561,
+    "test": 10701
+  }
+}

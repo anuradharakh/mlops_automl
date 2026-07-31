@@ -8,9 +8,6 @@
     "fran",
     "helen",
     "grace",
-    "filthy50",
-    "fgonebad",
-    "run400",
     "run5k",
     "pullups",
     "bmi",
@@ -28,9 +25,6 @@
     "fran",
     "helen",
     "grace",
-    "filthy50",
-    "fgonebad",
-    "run400",
     "run5k",
     "pullups",
     "gender",
@@ -39,7 +33,7 @@
     "age_squared",
     "weight_height_ratio"
   ],
-  "feature_count": 16,
+  "feature_count": 13,
   "missing_optional_numeric": [],
   "missing_optional_categorical": []
 }
