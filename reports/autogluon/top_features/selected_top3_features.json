@@ -1,0 +1,9 @@
+{
+  "source": "reports/autogluon/all_features/top5_features.csv",
+  "selected_features": [
+    "region",
+    "height",
+    "bmi"
+  ],
+  "feature_count": 3
+}

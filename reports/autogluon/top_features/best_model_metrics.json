@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "mlflow_run_id": "9ce6a7751cbb40bb8a7587af2af1aed2",
+  "platform": "AutoGluon",
+  "platform_mode": "full-code",
+  "feature_set": "top_features",
+  "selected_features": [
+    "region",
+    "height",
+    "bmi"
+  ],
+  "feature_count": 3,
+  "best_model": "WeightedEnsemble_L2",
+  "metrics": {
+    "best_validation_rmse": 21555.30439901677,
+    "test_rmse": 69453.01836681722,
+    "test_mae": 1503.45699745749,
+    "test_r2": -57827.31763390027,
+    "training_wall_clock_seconds": 2.5560422079979617,
+    "test_prediction_seconds": 0.3717995420010993,
+    "test_prediction_rows": 10707
+  },
+  "model_count": 3,
+  "predictor_path": "models/autogluon/top_features"
+}

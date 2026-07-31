@@ -1,0 +1,841 @@
+{
+  "path": "/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/models/autogluon/top_features",
+  "label": "total_lift",
+  "random_state": 0,
+  "version": "1.5.0",
+  "features": [
+    "region",
+    "height",
+    "bmi"
+  ],
+  "feature_metadata_in": "('float', [])  : 2 | ['height', 'bmi']\n('object', []) : 1 | ['region']",
+  "time_fit_preprocessing": 0.04160881042480469,
+  "time_fit_training": 2.4026682376861572,
+  "time_fit_total": 2.444277048110962,
+  "time_limit": 900,
+  "time_train_start": 1785502087.047266,
+  "num_rows_train": 34261,
+  "num_cols_train": 3,
+  "num_rows_val": 8566,
+  "num_rows_test": null,
+  "num_classes": null,
+  "problem_type": "regression",
+  "eval_metric": "root_mean_squared_error",
+  "best_model": "WeightedEnsemble_L2",
+  "best_model_score_val": -21555.30439901677,
+  "best_model_stack_level": 2,
+  "num_models_trained": 3,
+  "num_bag_folds": 0,
+  "max_stack_level": 2,
+  "max_core_stack_level": 1,
+  "model_info": {
+    "RandomForestMSE": {
+      "name": "RandomForestMSE",
+      "model_type": "RFModel",
+      "problem_type": "regression",
+      "eval_metric": "root_mean_squared_error",
+      "stopping_metric": "root_mean_squared_error",
+      "fit_time": 1.053067922592163,
+      "num_classes": null,
+      "quantile_levels": null,
+      "predict_time": 0.0675802230834961,
+      "val_score": -22859.709498469856,
+      "hyperparameters": {
+        "n_estimators": 300,
+        "max_leaf_nodes": 15000,
+        "n_jobs": -1,
+        "bootstrap": true,
+        "criterion": "squared_error",
+        "random_state": 0
+      },
+      "hyperparameters_user": {
+        "criterion": "squared_error"
+      },
+      "hyperparameters_fit": {
+        "n_estimators": 300
+      },
+      "hyperparameters_nondefault": [
+        "criterion"
+      ],
+      "ag_args_fit": {
+        "max_memory_usage_ratio": 1.0,
+        "max_time_limit_ratio": 1.0,
+        "max_time_limit": null,
+        "min_time_limit": 0,
+        "valid_raw_types": [
+          "bool",
+          "int",
+          "float",
+          "category"
+        ],
+        "valid_special_types": null,
+        "ignored_type_group_special": null,
+        "ignored_type_group_raw": null,
+        "get_features_kwargs": null,
+        "get_features_kwargs_extra": null,
+        "predict_1_batch_size": null,
+        "temperature_scalar": null
+      },
+      "num_features": 3,
+      "features": [
+        "height",
+        "bmi",
+        "region"
+      ],
+      "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+      "memory_size": 432662466,
+      "compile_time": null,
+      "is_initialized": true,
+      "is_fit": true,
+      "is_valid": true,
+      "can_infer": true,
+      "has_learning_curves": false,
+      "num_samples": 34261,
+      "val_in_fit": true,
+      "unlabeled_in_fit": false,
+      "num_cpus": 12,
+      "num_gpus": 0
+    },
+    "ExtraTreesMSE": {
+      "name": "ExtraTreesMSE",
+      "model_type": "XTModel",
+      "problem_type": "regression",
+      "eval_metric": "root_mean_squared_error",
+      "stopping_metric": "root_mean_squared_error",
+      "fit_time": 0.5110280513763428,
+      "num_classes": null,
+      "quantile_levels": null,
+      "predict_time": 0.06719422340393066,
+      "val_score": -23171.507795908907,
+      "hyperparameters": {
+        "n_estimators": 300,
+        "max_leaf_nodes": 15000,
+        "n_jobs": -1,
+        "bootstrap": true,
+        "criterion": "squared_error",
+        "random_state": 0
+      },
+      "hyperparameters_user": {
+        "criterion": "squared_error"
+      },
+      "hyperparameters_fit": {
+        "n_estimators": 300
+      },
+      "hyperparameters_nondefault": [
+        "criterion"
+      ],
+      "ag_args_fit": {
+        "max_memory_usage_ratio": 1.0,
+        "max_time_limit_ratio": 1.0,
+        "max_time_limit": null,
+        "min_time_limit": 0,
+        "valid_raw_types": [
+          "bool",
+          "int",
+          "float",
+          "category"
+        ],
+        "valid_special_types": null,
+        "ignored_type_group_special": null,
+        "ignored_type_group_raw": null,
+        "get_features_kwargs": null,
+        "get_features_kwargs_extra": null,
+        "predict_1_batch_size": null,
+        "temperature_scalar": null
+      },
+      "num_features": 3,
+      "features": [
+        "height",
+        "bmi",
+        "region"
+      ],
+      "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+      "memory_size": 433198291,
+      "compile_time": null,
+      "is_initialized": true,
+      "is_fit": true,
+      "is_valid": true,
+      "can_infer": true,
+      "has_learning_curves": false,
+      "num_samples": 34261,
+      "val_in_fit": true,
+      "unlabeled_in_fit": false,
+      "num_cpus": 12,
+      "num_gpus": 0
+    },
+    "WeightedEnsemble_L2": {
+      "name": "WeightedEnsemble_L2",
+      "model_type": "WeightedEnsembleModel",
+      "problem_type": "regression",
+      "eval_metric": "root_mean_squared_error",
+      "stopping_metric": "root_mean_squared_error",
+      "fit_time": 0.011549234390258789,
+      "num_classes": null,
+      "quantile_levels": null,
+      "predict_time": 0.0002110004425048828,
+      "val_score": -21555.30439901677,
+      "hyperparameters": {
+        "use_orig_features": false,
+        "valid_stacker": true,
+        "max_base_models": 0,
+        "max_base_models_per_type": "auto",
+        "save_bag_folds": true,
+        "stratify": "auto",
+        "bin": "auto",
+        "n_bins": null,
+        "vary_seed_across_folds": false,
+        "model_random_seed": 0
+      },
+      "hyperparameters_user": {
+        "save_bag_folds": true
+      },
+      "hyperparameters_fit": {},
+      "hyperparameters_nondefault": [
+        "save_bag_folds"
+      ],
+      "ag_args_fit": {
+        "max_memory_usage_ratio": 1.0,
+        "max_time_limit_ratio": 1.0,
+        "max_time_limit": null,
+        "min_time_limit": 0,
+        "valid_raw_types": null,
+        "valid_special_types": null,
+        "ignored_type_group_special": null,
+        "ignored_type_group_raw": null,
+        "get_features_kwargs": null,
+        "get_features_kwargs_extra": null,
+        "predict_1_batch_size": null,
+        "temperature_scalar": null,
+        "drop_unique": false
+      },
+      "num_features": 2,
+      "features": [
+        "RandomForestMSE",
+        "ExtraTreesMSE"
+      ],
+      "feature_metadata": "('float', ['stack']) : 2 | ['RandomForestMSE', 'ExtraTreesMSE']",
+      "memory_size": 3176,
+      "compile_time": null,
+      "is_initialized": true,
+      "is_fit": true,
+      "is_valid": true,
+      "can_infer": true,
+      "has_learning_curves": false,
+      "num_samples": 8566,
+      "val_in_fit": false,
+      "unlabeled_in_fit": false,
+      "num_cpus": 12,
+      "num_gpus": 0,
+      "bagged_info": {
+        "child_model_type": "GreedyWeightedEnsembleModel",
+        "num_child_models": 1,
+        "child_model_names": [
+          "S1F1"
+        ],
+        "_n_repeats": 1,
+        "_k_per_n_repeat": [
+          1
+        ],
+        "_random_state": 2,
+        "low_memory": false,
+        "bagged_mode": false,
+        "max_memory_size": 3176,
+        "min_memory_size": 3176,
+        "child_hyperparameters": {
+          "ensemble_size": 25,
+          "subsample_size": 1000000
+        },
+        "child_hyperparameters_user": {},
+        "child_hyperparameters_fit": {
+          "ensemble_size": 19
+        },
+        "child_ag_args_fit": {
+          "max_memory_usage_ratio": 1.0,
+          "max_time_limit_ratio": 1.0,
+          "max_time_limit": null,
+          "min_time_limit": 0,
+          "valid_raw_types": null,
+          "valid_special_types": null,
+          "ignored_type_group_special": null,
+          "ignored_type_group_raw": null,
+          "get_features_kwargs": null,
+          "get_features_kwargs_extra": null,
+          "predict_1_batch_size": null,
+          "temperature_scalar": null,
+          "drop_unique": false
+        }
+      },
+      "stacker_info": {
+        "num_base_models": 2,
+        "base_model_names": [
+          "RandomForestMSE",
+          "ExtraTreesMSE"
+        ]
+      },
+      "children_info": {
+        "S1F1": {
+          "name": "S1F1",
+          "model_type": "GreedyWeightedEnsembleModel",
+          "problem_type": "regression",
+          "eval_metric": "root_mean_squared_error",
+          "stopping_metric": "root_mean_squared_error",
+          "fit_time": 0.011549234390258789,
+          "num_classes": null,
+          "quantile_levels": null,
+          "predict_time": null,
+          "val_score": null,
+          "hyperparameters": {
+            "ensemble_size": 25,
+            "subsample_size": 1000000
+          },
+          "hyperparameters_user": {},
+          "hyperparameters_fit": {
+            "ensemble_size": 19
+          },
+          "hyperparameters_nondefault": [],
+          "ag_args_fit": {
+            "max_memory_usage_ratio": 1.0,
+            "max_time_limit_ratio": 1.0,
+            "max_time_limit": null,
+            "min_time_limit": 0,
+            "valid_raw_types": null,
+            "valid_special_types": null,
+            "ignored_type_group_special": null,
+            "ignored_type_group_raw": null,
+            "get_features_kwargs": null,
+            "get_features_kwargs_extra": null,
+            "predict_1_batch_size": null,
+            "temperature_scalar": null,
+            "drop_unique": false
+          },
+          "num_features": 2,
+          "features": [
+            "RandomForestMSE",
+            "ExtraTreesMSE"
+          ],
+          "feature_metadata": "('float', ['stack']) : 2 | ['RandomForestMSE', 'ExtraTreesMSE']",
+          "memory_size": 6003,
+          "compile_time": null,
+          "is_initialized": true,
+          "is_fit": true,
+          "is_valid": true,
+          "can_infer": true,
+          "has_learning_curves": false,
+          "num_samples": 8566,
+          "val_in_fit": false,
+          "unlabeled_in_fit": false,
+          "num_cpus": 12,
+          "num_gpus": 0,
+          "model_weights": {
+            "RandomForestMSE": 0.5263157894736842,
+            "ExtraTreesMSE": 0.47368421052631576
+          }
+        }
+      }
+    }
+  },
+  "model_info_failures": {
+    "LightGBMXT": {
+      "exc_type": "ImportError",
+      "exc_str": "`import lightgbm` failed. A quick tip is to install via `pip install autogluon.tabular[lightgbm]==1.5.0`.",
+      "exc_traceback": "Traceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 92, in try_import_lightgbm\n    import lightgbm\nModuleNotFoundError: No module named 'lightgbm'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2201, in _train_and_save\n    model = self._train_single(**model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2085, in _train_single\n    model = model.fit(X=X, y=y, X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test, total_resources=total_resources, **model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/core/models/abstract/abstract_model.py\", line 1125, in fit\n    out = self._fit(**kwargs)\n          ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/models/lgb/lgb_model.py\", line 170, in _fit\n    try_import_lightgbm()  # raise helpful error message if LightGBM isn't installed\n    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 94, in try_import_lightgbm\n    raise ImportError(\nImportError: `import lightgbm` failed. A quick tip is to install via `pip install autogluon.tabular[lightgbm]==1.5.0`.\n",
+      "model_info": {
+        "name": "LightGBMXT",
+        "model_type": "LGBModel",
+        "problem_type": "regression",
+        "eval_metric": "root_mean_squared_error",
+        "stopping_metric": "root_mean_squared_error",
+        "fit_time": null,
+        "num_classes": null,
+        "quantile_levels": null,
+        "predict_time": null,
+        "val_score": null,
+        "hyperparameters": {
+          "learning_rate": 0.05,
+          "extra_trees": true,
+          "seed": 0
+        },
+        "hyperparameters_user": {
+          "extra_trees": true
+        },
+        "hyperparameters_fit": {},
+        "hyperparameters_nondefault": [
+          "extra_trees"
+        ],
+        "ag_args_fit": {
+          "max_memory_usage_ratio": 1.0,
+          "max_time_limit_ratio": 1.0,
+          "max_time_limit": null,
+          "min_time_limit": 0,
+          "valid_raw_types": [
+            "bool",
+            "int",
+            "float",
+            "category"
+          ],
+          "valid_special_types": null,
+          "ignored_type_group_special": null,
+          "ignored_type_group_raw": null,
+          "get_features_kwargs": null,
+          "get_features_kwargs_extra": null,
+          "predict_1_batch_size": null,
+          "temperature_scalar": null
+        },
+        "num_features": 3,
+        "features": [
+          "height",
+          "bmi",
+          "region"
+        ],
+        "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+        "memory_size": 2020,
+        "compile_time": null,
+        "is_initialized": true,
+        "is_fit": false,
+        "is_valid": false,
+        "can_infer": false,
+        "has_learning_curves": false,
+        "num_samples": 34261,
+        "val_in_fit": true,
+        "unlabeled_in_fit": false,
+        "num_cpus": 12,
+        "num_gpus": 0
+      },
+      "total_time": 0.012398719787597656
+    },
+    "LightGBM": {
+      "exc_type": "ImportError",
+      "exc_str": "`import lightgbm` failed. A quick tip is to install via `pip install autogluon.tabular[lightgbm]==1.5.0`.",
+      "exc_traceback": "Traceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 92, in try_import_lightgbm\n    import lightgbm\nModuleNotFoundError: No module named 'lightgbm'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2201, in _train_and_save\n    model = self._train_single(**model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2085, in _train_single\n    model = model.fit(X=X, y=y, X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test, total_resources=total_resources, **model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/core/models/abstract/abstract_model.py\", line 1125, in fit\n    out = self._fit(**kwargs)\n          ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/models/lgb/lgb_model.py\", line 170, in _fit\n    try_import_lightgbm()  # raise helpful error message if LightGBM isn't installed\n    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 94, in try_import_lightgbm\n    raise ImportError(\nImportError: `import lightgbm` failed. A quick tip is to install via `pip install autogluon.tabular[lightgbm]==1.5.0`.\n",
+      "model_info": {
+        "name": "LightGBM",
+        "model_type": "LGBModel",
+        "problem_type": "regression",
+        "eval_metric": "root_mean_squared_error",
+        "stopping_metric": "root_mean_squared_error",
+        "fit_time": null,
+        "num_classes": null,
+        "quantile_levels": null,
+        "predict_time": null,
+        "val_score": null,
+        "hyperparameters": {
+          "learning_rate": 0.05,
+          "seed": 0
+        },
+        "hyperparameters_user": {},
+        "hyperparameters_fit": {},
+        "hyperparameters_nondefault": [],
+        "ag_args_fit": {
+          "max_memory_usage_ratio": 1.0,
+          "max_time_limit_ratio": 1.0,
+          "max_time_limit": null,
+          "min_time_limit": 0,
+          "valid_raw_types": [
+            "bool",
+            "int",
+            "float",
+            "category"
+          ],
+          "valid_special_types": null,
+          "ignored_type_group_special": null,
+          "ignored_type_group_raw": null,
+          "get_features_kwargs": null,
+          "get_features_kwargs_extra": null,
+          "predict_1_batch_size": null,
+          "temperature_scalar": null
+        },
+        "num_features": 3,
+        "features": [
+          "height",
+          "bmi",
+          "region"
+        ],
+        "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+        "memory_size": 1994,
+        "compile_time": null,
+        "is_initialized": true,
+        "is_fit": false,
+        "is_valid": false,
+        "can_infer": false,
+        "has_learning_curves": false,
+        "num_samples": 34261,
+        "val_in_fit": true,
+        "unlabeled_in_fit": false,
+        "num_cpus": 12,
+        "num_gpus": 0
+      },
+      "total_time": 0.0025768280029296875
+    },
+    "CatBoost": {
+      "exc_type": "ImportError",
+      "exc_str": "`import catboost` failed. A quick tip is to install via `pip install autogluon.tabular[catboost]==1.5.0`.",
+      "exc_traceback": "Traceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 69, in try_import_catboost\n    import catboost\nModuleNotFoundError: No module named 'catboost'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2201, in _train_and_save\n    model = self._train_single(**model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2085, in _train_single\n    model = model.fit(X=X, y=y, X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test, total_resources=total_resources, **model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/core/models/abstract/abstract_model.py\", line 1125, in fit\n    out = self._fit(**kwargs)\n          ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/models/catboost/catboost_model.py\", line 124, in _fit\n    try_import_catboost()\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 78, in try_import_catboost\n    raise ImportError(\nImportError: `import catboost` failed. A quick tip is to install via `pip install autogluon.tabular[catboost]==1.5.0`.\n",
+      "model_info": {
+        "name": "CatBoost",
+        "model_type": "CatBoostModel",
+        "problem_type": "regression",
+        "eval_metric": "root_mean_squared_error",
+        "stopping_metric": "root_mean_squared_error",
+        "fit_time": null,
+        "num_classes": null,
+        "quantile_levels": null,
+        "predict_time": null,
+        "val_score": null,
+        "hyperparameters": {
+          "iterations": 10000,
+          "learning_rate": 0.05,
+          "allow_writing_files": false,
+          "eval_metric": "RMSE",
+          "random_seed": 0
+        },
+        "hyperparameters_user": {},
+        "hyperparameters_fit": {},
+        "hyperparameters_nondefault": [],
+        "ag_args_fit": {
+          "max_memory_usage_ratio": 1.0,
+          "max_time_limit_ratio": 1.0,
+          "max_time_limit": null,
+          "min_time_limit": 0,
+          "valid_raw_types": [
+            "bool",
+            "int",
+            "float",
+            "category"
+          ],
+          "valid_special_types": null,
+          "ignored_type_group_special": null,
+          "ignored_type_group_raw": null,
+          "get_features_kwargs": null,
+          "get_features_kwargs_extra": null,
+          "predict_1_batch_size": null,
+          "temperature_scalar": null
+        },
+        "num_features": 3,
+        "features": [
+          "height",
+          "bmi",
+          "region"
+        ],
+        "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+        "memory_size": 2101,
+        "compile_time": null,
+        "is_initialized": true,
+        "is_fit": false,
+        "is_valid": false,
+        "can_infer": false,
+        "has_learning_curves": false,
+        "num_samples": 34261,
+        "val_in_fit": true,
+        "unlabeled_in_fit": false,
+        "num_cpus": 12,
+        "num_gpus": 0
+      },
+      "total_time": 0.0028028488159179688
+    },
+    "NeuralNetFastAI": {
+      "exc_type": "ImportError",
+      "exc_str": "Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. ",
+      "exc_traceback": "Traceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 141, in try_import_fastai\n    import fastai\nModuleNotFoundError: No module named 'fastai'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2201, in _train_and_save\n    model = self._train_single(**model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2085, in _train_single\n    model = model.fit(X=X, y=y, X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test, total_resources=total_resources, **model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/core/models/abstract/abstract_model.py\", line 1125, in fit\n    out = self._fit(**kwargs)\n          ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/models/fastainn/tabular_nn_fastai.py\", line 231, in _fit\n    try_import_fastai()\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 152, in try_import_fastai\n    raise ImportError(\nImportError: Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. \n",
+      "model_info": {
+        "name": "NeuralNetFastAI",
+        "model_type": "NNFastAiTabularModel",
+        "problem_type": "regression",
+        "eval_metric": "root_mean_squared_error",
+        "stopping_metric": "root_mean_squared_error",
+        "fit_time": null,
+        "num_classes": null,
+        "quantile_levels": null,
+        "predict_time": null,
+        "val_score": null,
+        "hyperparameters": {
+          "layers": null,
+          "emb_drop": 0.1,
+          "ps": 0.1,
+          "bs": "auto",
+          "lr": 0.01,
+          "epochs": "auto",
+          "early.stopping.min_delta": 0.0001,
+          "early.stopping.patience": 20,
+          "smoothing": 0.0,
+          "random_seed": 0
+        },
+        "hyperparameters_user": {},
+        "hyperparameters_fit": {},
+        "hyperparameters_nondefault": [],
+        "ag_args_fit": {
+          "max_memory_usage_ratio": 1.0,
+          "max_time_limit_ratio": 1.0,
+          "max_time_limit": null,
+          "min_time_limit": 0,
+          "valid_raw_types": [
+            "bool",
+            "int",
+            "float",
+            "category"
+          ],
+          "valid_special_types": null,
+          "ignored_type_group_special": [
+            "text_ngram",
+            "text_as_category"
+          ],
+          "ignored_type_group_raw": null,
+          "get_features_kwargs": null,
+          "get_features_kwargs_extra": null,
+          "predict_1_batch_size": null,
+          "temperature_scalar": null
+        },
+        "num_features": 3,
+        "features": [
+          "height",
+          "bmi",
+          "region"
+        ],
+        "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+        "memory_size": 2393,
+        "compile_time": null,
+        "is_initialized": true,
+        "is_fit": false,
+        "is_valid": false,
+        "can_infer": false,
+        "has_learning_curves": false,
+        "num_samples": 34261,
+        "val_in_fit": true,
+        "unlabeled_in_fit": false,
+        "num_cpus": 12,
+        "num_gpus": 0
+      },
+      "total_time": 0.003007173538208008
+    },
+    "XGBoost": {
+      "exc_type": "ImportError",
+      "exc_str": "`import xgboost` failed. A quick tip is to install via `pip install autogluon.tabular[xgboost]==1.5.0`.",
+      "exc_traceback": "Traceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 107, in try_import_xgboost\n    import xgboost\nModuleNotFoundError: No module named 'xgboost'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2201, in _train_and_save\n    model = self._train_single(**model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2085, in _train_single\n    model = model.fit(X=X, y=y, X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test, total_resources=total_resources, **model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/core/models/abstract/abstract_model.py\", line 1125, in fit\n    out = self._fit(**kwargs)\n          ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/models/xgboost/xgboost_model.py\", line 156, in _fit\n    try_import_xgboost()\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 116, in try_import_xgboost\n    raise ImportError(\nImportError: `import xgboost` failed. A quick tip is to install via `pip install autogluon.tabular[xgboost]==1.5.0`.\n",
+      "model_info": {
+        "name": "XGBoost",
+        "model_type": "XGBoostModel",
+        "problem_type": "regression",
+        "eval_metric": "root_mean_squared_error",
+        "stopping_metric": "root_mean_squared_error",
+        "fit_time": null,
+        "num_classes": null,
+        "quantile_levels": null,
+        "predict_time": null,
+        "val_score": null,
+        "hyperparameters": {
+          "n_estimators": 10000,
+          "learning_rate": 0.1,
+          "n_jobs": -1,
+          "proc.max_category_levels": 100,
+          "objective": "reg:squarederror",
+          "booster": "gbtree",
+          "seed": 0
+        },
+        "hyperparameters_user": {},
+        "hyperparameters_fit": {},
+        "hyperparameters_nondefault": [],
+        "ag_args_fit": {
+          "max_memory_usage_ratio": 1.0,
+          "max_time_limit_ratio": 1.0,
+          "max_time_limit": null,
+          "min_time_limit": 0,
+          "valid_raw_types": [
+            "bool",
+            "int",
+            "float",
+            "category"
+          ],
+          "valid_special_types": null,
+          "ignored_type_group_special": null,
+          "ignored_type_group_raw": null,
+          "get_features_kwargs": null,
+          "get_features_kwargs_extra": null,
+          "predict_1_batch_size": null,
+          "temperature_scalar": null
+        },
+        "num_features": 3,
+        "features": [
+          "height",
+          "bmi",
+          "region"
+        ],
+        "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+        "memory_size": 3896,
+        "compile_time": null,
+        "is_initialized": true,
+        "is_fit": false,
+        "is_valid": false,
+        "can_infer": false,
+        "has_learning_curves": false,
+        "num_samples": 34261,
+        "val_in_fit": true,
+        "unlabeled_in_fit": false,
+        "num_cpus": 12,
+        "num_gpus": 0
+      },
+      "total_time": 0.02277088165283203
+    },
+    "NeuralNetTorch": {
+      "exc_type": "ImportError",
+      "exc_str": "Unable to import dependency torch\nA quick tip is to install via `pip install torch`.\nThe minimum torch version is currently 2.6.",
+      "exc_traceback": "Traceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 159, in try_import_torch\n    import torch\nModuleNotFoundError: No module named 'torch'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2201, in _train_and_save\n    model = self._train_single(**model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2085, in _train_single\n    model = model.fit(X=X, y=y, X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test, total_resources=total_resources, **model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/core/models/abstract/abstract_model.py\", line 1125, in fit\n    out = self._fit(**kwargs)\n          ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/models/tabular_nn/torch/tabular_nn_torch.py\", line 184, in _fit\n    try_import_torch()\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 161, in try_import_torch\n    raise ImportError(\nImportError: Unable to import dependency torch\nA quick tip is to install via `pip install torch`.\nThe minimum torch version is currently 2.6.\n",
+      "model_info": {
+        "name": "NeuralNetTorch",
+        "model_type": "TabularNeuralNetTorchModel",
+        "problem_type": "regression",
+        "eval_metric": "root_mean_squared_error",
+        "stopping_metric": "root_mean_squared_error",
+        "fit_time": null,
+        "num_classes": null,
+        "quantile_levels": null,
+        "predict_time": null,
+        "val_score": null,
+        "hyperparameters": {
+          "num_epochs": 1000,
+          "epochs_wo_improve": null,
+          "activation": "relu",
+          "embedding_size_factor": 1.0,
+          "embed_exponent": 0.56,
+          "max_embedding_dim": 100,
+          "y_range": null,
+          "y_range_extend": 0.05,
+          "dropout_prob": 0.1,
+          "optimizer": "adam",
+          "learning_rate": 0.0003,
+          "weight_decay": 1e-06,
+          "proc.embed_min_categories": 4,
+          "proc.impute_strategy": "median",
+          "proc.max_category_levels": 100,
+          "proc.skew_threshold": 0.99,
+          "use_ngram_features": false,
+          "num_layers": 4,
+          "hidden_size": 128,
+          "max_batch_size": 512,
+          "use_batchnorm": false,
+          "loss_function": "auto",
+          "seed_value": 0
+        },
+        "hyperparameters_user": {},
+        "hyperparameters_fit": {},
+        "hyperparameters_nondefault": [],
+        "ag_args_fit": {
+          "max_memory_usage_ratio": 1.0,
+          "max_time_limit_ratio": 1.0,
+          "max_time_limit": null,
+          "min_time_limit": 0,
+          "valid_raw_types": [
+            "bool",
+            "int",
+            "float",
+            "category"
+          ],
+          "valid_special_types": null,
+          "ignored_type_group_special": [
+            "text_ngram",
+            "text_as_category"
+          ],
+          "ignored_type_group_raw": null,
+          "get_features_kwargs": null,
+          "get_features_kwargs_extra": null,
+          "predict_1_batch_size": null,
+          "temperature_scalar": null
+        },
+        "num_features": 3,
+        "features": [
+          "height",
+          "bmi",
+          "region"
+        ],
+        "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+        "memory_size": 2773,
+        "compile_time": null,
+        "is_initialized": true,
+        "is_fit": false,
+        "is_valid": false,
+        "can_infer": false,
+        "has_learning_curves": false,
+        "num_samples": 34261,
+        "val_in_fit": true,
+        "unlabeled_in_fit": false,
+        "num_cpus": 12,
+        "num_gpus": 0
+      },
+      "total_time": 0.0033957958221435547
+    },
+    "LightGBMLarge": {
+      "exc_type": "ImportError",
+      "exc_str": "`import lightgbm` failed. A quick tip is to install via `pip install autogluon.tabular[lightgbm]==1.5.0`.",
+      "exc_traceback": "Traceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 92, in try_import_lightgbm\n    import lightgbm\nModuleNotFoundError: No module named 'lightgbm'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2201, in _train_and_save\n    model = self._train_single(**model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/trainer/abstract_trainer.py\", line 2085, in _train_single\n    model = model.fit(X=X, y=y, X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test, total_resources=total_resources, **model_fit_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/core/models/abstract/abstract_model.py\", line 1125, in fit\n    out = self._fit(**kwargs)\n          ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/tabular/models/lgb/lgb_model.py\", line 170, in _fit\n    try_import_lightgbm()  # raise helpful error message if LightGBM isn't installed\n    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sanketmayekar/AnuradhaM/MLOPS/mlops_automl/.venv/lib/python3.11/site-packages/autogluon/common/utils/try_import.py\", line 94, in try_import_lightgbm\n    raise ImportError(\nImportError: `import lightgbm` failed. A quick tip is to install via `pip install autogluon.tabular[lightgbm]==1.5.0`.\n",
+      "model_info": {
+        "name": "LightGBMLarge",
+        "model_type": "LGBModel",
+        "problem_type": "regression",
+        "eval_metric": "root_mean_squared_error",
+        "stopping_metric": "root_mean_squared_error",
+        "fit_time": null,
+        "num_classes": null,
+        "quantile_levels": null,
+        "predict_time": null,
+        "val_score": null,
+        "hyperparameters": {
+          "learning_rate": 0.03,
+          "num_leaves": 128,
+          "feature_fraction": 0.9,
+          "min_data_in_leaf": 3,
+          "seed": 0
+        },
+        "hyperparameters_user": {
+          "learning_rate": 0.03,
+          "num_leaves": 128,
+          "feature_fraction": 0.9,
+          "min_data_in_leaf": 3
+        },
+        "hyperparameters_fit": {},
+        "hyperparameters_nondefault": [
+          "learning_rate",
+          "num_leaves",
+          "feature_fraction",
+          "min_data_in_leaf"
+        ],
+        "ag_args_fit": {
+          "max_memory_usage_ratio": 1.0,
+          "max_time_limit_ratio": 1.0,
+          "max_time_limit": null,
+          "min_time_limit": 0,
+          "valid_raw_types": [
+            "bool",
+            "int",
+            "float",
+            "category"
+          ],
+          "valid_special_types": null,
+          "ignored_type_group_special": null,
+          "ignored_type_group_raw": null,
+          "get_features_kwargs": null,
+          "get_features_kwargs_extra": null,
+          "predict_1_batch_size": null,
+          "temperature_scalar": null
+        },
+        "num_features": 3,
+        "features": [
+          "height",
+          "bmi",
+          "region"
+        ],
+        "feature_metadata": "('category', []) : 1 | ['region']\n('float', [])    : 2 | ['height', 'bmi']",
+        "memory_size": 2110,
+        "compile_time": null,
+        "is_initialized": true,
+        "is_fit": false,
+        "is_valid": false,
+        "can_infer": false,
+        "has_learning_curves": false,
+        "num_samples": 34261,
+        "val_in_fit": true,
+        "unlabeled_in_fit": false,
+        "num_cpus": 12,
+        "num_gpus": 0
+      },
+      "total_time": 0.0026051998138427734
+    }
+  }
+}
