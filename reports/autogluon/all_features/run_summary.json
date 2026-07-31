@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "mlflow_run_id": "ac4a945714a041aa8c5996b2ad34d64c",
+  "platform": "AutoGluon",
+  "platform_mode": "full-code AutoML",
+  "feature_set": "all_features",
+  "feature_count": 13,
+  "model_features": [
+    "age",
+    "height",
+    "weight",
+    "fran",
+    "helen",
+    "grace",
+    "run5k",
+    "pullups",
+    "gender",
+    "region",
+    "bmi",
+    "age_squared",
+    "weight_height_ratio"
+  ],
+  "best_model": "WeightedEnsemble_L2",
+  "validation_rmse": 125.78332637783177,
+  "test_rmse": 124.67884352188754,
+  "test_mae": 91.37594362085484,
+  "test_r2": 0.7956207858795439,
+  "training_wall_clock_seconds": 11.573059666996414,
+  "prediction_seconds": 0.23715512500348268,
+  "prediction_rows": 10701,
+  "speed_measure": "fit_time_marginal",
+  "top_five_features": [
+    "gender",
+    "fran",
+    "weight_height_ratio",
+    "grace",
+    "pullups"
+  ],
+  "top_three_features": [
+    "gender",
+    "fran",
+    "weight_height_ratio"
+  ],
+  "predictor_path": "artifacts/autogluon/all_features",
+  "package_versions": {
+    "python": "3.11.4",
+    "autogluon.tabular": "1.5.0",
+    "mlflow": "3.14.0",
+    "pandas": "2.3.3",
+    "numpy": "1.26.4",
+    "scikit-learn": "1.7.2"
+  },
+  "reproducibility_note": "The data split and execution configuration are fixed. Some underlying AutoML model implementations may still show small run-to-run variation."
+}

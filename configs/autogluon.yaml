@@ -1,33 +1,39 @@
 project:
-  platform: AutoGluon
-  mode: full-code
-
+  name: mlops-automl
 data:
   train_path: data/splits/train.parquet
   validation_path: data/splits/validation.parquet
   test_path: data/splits/test.parquet
-
+  feature_list_path: reports/data/feature_list.json
 schema:
   target_column: total_lift
   identifier_candidates:
-    - athlete_id
-    - record_id
-
-experiment:
-  name: athletes-autogluon
-  run_name: autogluon-all-features
+  - athlete_id
+  - record_id
+  prohibited_features:
+  - total_lift
+  - deadlift
+  - candj
+  - snatch
+  - backsq
+  - athlete_id
+  - record_id
+automl:
+  platform: autogluon
+  feature_set: all_features
+  eval_metric: root_mean_squared_error
+  problem_type: regression
   presets: medium_quality
   time_limit_seconds: 900
+  fit_strategy: sequential
   random_state: 42
-
+  predictor_path: artifacts/autogluon/all_features
 feature_importance:
   subsample_size: 5000
   num_shuffle_sets: 3
-  time_limit_seconds: 300
-
-tracking:
-  uri: sqlite:///mlflow.db
-
-outputs:
-  predictor_path: models/autogluon/all_features
-  report_dir: reports/autogluon/all_features
+mlflow:
+  tracking_database: mlflow_autogluon.db
+  experiment_name: athletes_automl_autogluon
+  run_name: autogluon_all_features
+reports:
+  output_dir: reports/autogluon/all_features
